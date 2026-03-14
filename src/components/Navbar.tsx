@@ -1,0 +1,101 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ShoppingCart, Menu, X, Search, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useCart } from "@/context/CartContext";
+import { Badge } from "@/components/ui/badge";
+
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/products", label: "Shop" },
+  { to: "/bulk-orders", label: "Bulk Orders" },
+  { to: "/offers", label: "Offers" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
+];
+
+export default function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { totalItems } = useCart();
+  const location = useLocation();
+
+  return (
+    <header className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+      {/* Top bar */}
+      <div className="bg-primary text-primary-foreground">
+        <div className="container flex items-center justify-between py-1.5 text-sm">
+          <span>🚚 Free delivery within 1 km!</span>
+          <a href="tel:+919876543210" className="flex items-center gap-1 hover:underline">
+            <Phone className="h-3 w-3" /> +91 98765 43210
+          </a>
+        </div>
+      </div>
+
+      <div className="container flex items-center justify-between py-3">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-display font-bold text-lg">S</div>
+          <div className="hidden sm:block">
+            <div className="font-display font-bold text-lg leading-tight">Siddeshwara</div>
+            <div className="text-xs text-muted-foreground leading-tight">Global Services</div>
+          </div>
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navLinks.map(link => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                location.pathname === link.to
+                  ? "bg-primary/10 text-primary"
+                  : "text-foreground/70 hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <Link to="/products">
+            <Button variant="ghost" size="icon" className="text-foreground/70">
+              <Search className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link to="/cart" className="relative">
+            <Button variant="ghost" size="icon" className="text-foreground/70">
+              <ShoppingCart className="h-5 w-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-bold">
+                  {totalItems}
+                </span>
+              )}
+            </Button>
+          </Link>
+          <Button variant="ghost" size="icon" className="md:hidden text-foreground/70" onClick={() => setMobileOpen(!mobileOpen)}>
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile nav */}
+      {mobileOpen && (
+        <nav className="md:hidden border-t pb-4">
+          {navLinks.map(link => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setMobileOpen(false)}
+              className={`block px-6 py-3 text-sm font-medium transition-colors ${
+                location.pathname === link.to ? "bg-primary/10 text-primary" : "text-foreground/70"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}
