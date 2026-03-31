@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="group animate-fade-in-up transition-all duration-300 hover:translate-y-[-4px]">
             <div className="flex items-center gap-2 mb-4 transition-smooth duration-300">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground font-display font-bold transition-smooth duration-300 group-hover:scale-110">S</div>
+              <img src="/favicon.jpg" alt="Siddeshwara Global Services Logo" className="h-9 w-9 rounded-lg object-cover group-hover:scale-110 transition-smooth duration-300" />
               <div>
                 <div className="font-display font-bold leading-tight">Siddeshwara</div>
                 <div className="text-xs text-muted-foreground">Global Services</div>

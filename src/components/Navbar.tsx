@@ -33,7 +33,7 @@ export default function Navbar() {
 
       <div className="container flex items-center justify-between py-3">
         <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-smooth duration-200">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-display font-bold text-lg transition-smooth duration-300 hover:scale-110">S</div>
+          <img src="/favicon.jpg" alt="Siddeshwara Global Services Logo" className="h-10 w-10 rounded-lg object-cover" />
           <div className="hidden sm:block">
             <div className="font-display font-bold text-lg leading-tight">Siddeshwara</div>
             <div className="text-xs text-muted-foreground leading-tight">Global Services</div>
