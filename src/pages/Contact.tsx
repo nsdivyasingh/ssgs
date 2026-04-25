@@ -4,14 +4,62 @@ import { Button } from "@/components/ui/button";
 import { FloatingInput, FloatingTextarea } from "@/components/ui/floating-input";
 import { useState } from "react";
 import { toast } from "sonner";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const ContactPage = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: ""
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! We'll get back to you soon.");
-    setSubmitted(true);
+    
+    // Basic Validation
+    if (formData.name.trim().length < 2) {
+      return toast.error("Please enter a valid name.");
+    }
+    
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(formData.phone.replace(/\D/g, ''))) {
+      return toast.error("Please enter a valid 10-digit phone number.");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      return toast.error("Please enter a valid email address.");
+    }
+
+    if (formData.message.trim().length < 10) {
+      return toast.error("Please enter a message with at least 10 characters.");
+    }
+    
+    try {
+      await addDoc(collection(db, "messages"), {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email || null,
+        message: formData.message,
+        status: "new",
+        createdAt: serverTimestamp()
+      });
+      
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      setSubmitted(true);
+      
+      // Reset form after a delay
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: "", phone: "", email: "", message: "" });
+      }, 5000);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast.error("Failed to send message. Please try again or use WhatsApp.");
+    }
   };
 
   return (
@@ -44,7 +92,7 @@ const ContactPage = () => {
             </div>
 
             <a
-              href="https://wa.me/919845329179?text=Hi%2C%20I%20want%20to%20place%20an%20order"
+              href="https://wa.me/919845329179?text=Hi%2C%20how%20can%20you%20help%20me%3F"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 rounded-xl bg-[hsl(142,70%,45%)] p-4 text-white font-medium hover:opacity-90 transition-opacity"
@@ -71,20 +119,41 @@ const ContactPage = () => {
           </div>
 
           <div className="rounded-xl border bg-card p-6">
-            <h3 className="font-display font-bold text-lg mb-4">Send us a Message</h3>
+            <h3 className="font-display font-bold text-lg mb-4">How can we help?</h3>
             {submitted ? (
               <div className="py-12 text-center">
                 <div className="text-4xl mb-4">✅</div>
                 <h4 className="font-display font-bold text-lg">Message Sent!</h4>
                 <p className="text-sm text-muted-foreground mt-2">We'll respond within 24 hours.</p>
-                <Button variant="outline" className="mt-4" onClick={() => setSubmitted(false)}>Send Another</Button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-                <FloatingInput label="Your Name" required />
-                <FloatingInput label="Phone Number" type="tel" required />
-                <FloatingInput label="Email" type="email" />
-                <FloatingTextarea label="Your message..." required />
+                <FloatingInput 
+                  label="Your Name" 
+                  required 
+                  value={formData.name}
+                  onChange={e => setFormData({...formData, name: e.target.value})}
+                />
+                <FloatingInput 
+                  label="Phone Number" 
+                  type="tel" 
+                  required 
+                  value={formData.phone}
+                  onChange={e => setFormData({...formData, phone: e.target.value})}
+                />
+                <FloatingInput 
+                  label="Email" 
+                  type="email" 
+                  required
+                  value={formData.email}
+                  onChange={e => setFormData({...formData, email: e.target.value})}
+                />
+                <FloatingTextarea 
+                  label="Your message..." 
+                  required 
+                  value={formData.message}
+                  onChange={e => setFormData({...formData, message: e.target.value})}
+                />
                 <Button type="submit" className="w-full" size="lg">Send Message</Button>
               </form>
             )}

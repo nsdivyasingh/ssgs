@@ -144,7 +144,7 @@ const HomePage = () => {
             <User className="h-6 w-6 text-primary" />
             <h2 className="font-display text-3xl font-bold">About Siddeshwara Global Services</h2>
           </div>
-          
+
           <div className="grid gap-8 lg:grid-cols-2 items-center mb-8">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -173,10 +173,10 @@ const HomePage = () => {
               className="grid grid-cols-2 gap-4"
             >
               {[
-                { label: "500+", desc: "Happy Customers" },
-                { label: "50+", desc: "Apartments Served" },
-                { label: "90+", desc: "Products Available" },
-                { label: "5+", desc: "Years Experience" },
+                { label: "50+", desc: "Happy Customers" },
+                { label: "10+", desc: "Apartments Served" },
+                { label: "100+", desc: "Products Available" },
+                { label: "<1", desc: "Years Experience" },
               ].map((stat, i) => (
                 <div key={i} className="rounded-xl border bg-card p-6 text-center">
                   <div className="font-display text-2xl font-bold text-primary">{stat.label}</div>

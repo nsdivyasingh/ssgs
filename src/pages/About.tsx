@@ -24,10 +24,10 @@ const AboutPage = () => {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-12">
           {[
-            { icon: Users, label: "500+", desc: "Happy Customers" },
-            { icon: Building2, label: "50+", desc: "Apartments Served" },
+            { icon: Users, label: "50+", desc: "Happy Customers" },
+            { icon: Building2, label: "10+", desc: "Apartments Served" },
             { icon: Award, label: "100+", desc: "Products" },
-            { icon: CheckCircle, label: "5+", desc: "Years Experience" },
+            { icon: CheckCircle, label: "<1", desc: "Years Experience" },
           ].map((stat, i) => (
             <motion.div
               key={i}
