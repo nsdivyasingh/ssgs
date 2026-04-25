@@ -1,14 +1,9 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+
+# Prevent indexing of internal admin routes
+Disallow: /admin
+Disallow: /admin-login
+Disallow: /profile
+
+Sitemap: https://www.siddeshwaraglobalservices.com/sitemap.xml

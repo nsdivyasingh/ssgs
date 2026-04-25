@@ -153,10 +153,10 @@ const HomePage = () => {
               transition={{ duration: 0.6 }}
             >
               <p className="text-lg text-muted-foreground mb-4">
-                Your trusted partner for quality household and apartment cleaning products. We've been serving hundreds of homes and residential societies for over 5 years.
+                Welcome to Siddeshwara Global Services, your trusted partner for premium cleaning products and hygiene essentials in Bangalore. Whether you are managing a large apartment complex, running a corporate office, or simply maintaining a spotless home, we provide professional-grade cleaning supplies tailored to your exact needs.
               </p>
               <p className="text-muted-foreground mb-6">
-                We understand the unique cleaning needs of Indian homes and apartments. That's why we carefully curate our product range to include everything from floor cleaners and mops to hygiene essentials — all from trusted brands at competitive prices.
+                We understand that maintaining high hygiene standards requires reliable, tough-acting products. That's why we meticulously curate our inventory to feature only the best floor cleaners, disinfectants, and specialized cleaning tools. From wholesale bulk orders with customized pricing for residential societies to convenient retail shopping with free local delivery in Singasandra, we make stocking up effortless.
               </p>
               <Link to="/about">
                 <Button className="gap-2">
