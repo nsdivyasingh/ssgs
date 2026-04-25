@@ -7,7 +7,8 @@ export interface FloatingInputProps extends React.InputHTMLAttributes<HTMLInputE
 
 const FloatingInput = React.forwardRef<HTMLInputElement, FloatingInputProps>(
   ({ className, type, label, id, ...props }, ref) => {
-    const inputId = id || React.useId();
+    const generatedId = React.useId();
+    const inputId = id || generatedId;
     
     return (
       <div className={cn("relative z-0 w-full group", className)}>
@@ -37,7 +38,8 @@ export interface FloatingTextareaProps extends React.TextareaHTMLAttributes<HTML
 
 const FloatingTextarea = React.forwardRef<HTMLTextAreaElement, FloatingTextareaProps>(
   ({ className, label, id, ...props }, ref) => {
-    const inputId = id || React.useId();
+    const generatedId = React.useId();
+    const inputId = id || generatedId;
     
     return (
       <div className={cn("relative z-0 w-full group", className)}>

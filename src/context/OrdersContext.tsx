@@ -45,20 +45,21 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       }
       
       try {
-        let q;
-        if (isAdmin) {
-          // Admin sees all orders
-          q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
-        } else {
-          // User sees only their orders
-          q = query(collection(db, "orders"), where("userId", "==", user.uid), orderBy("createdAt", "desc"));
-        }
+        const ordersRef = collection(db, "orders");
+        const q = isAdmin
+          ? query(ordersRef, orderBy("createdAt", "desc")) // Admin sees all orders
+          : query(ordersRef, where("userId", "==", user.uid)); // User sees only their orders (no orderBy to prevent index error)
         
         const querySnapshot = await getDocs(q);
-        const ordersData = querySnapshot.docs.map(doc => ({
+        let ordersData = querySnapshot.docs.map(doc => ({
           ...doc.data(),
           id: doc.id
         })) as Order[];
+        
+        // Sort client-side if we couldn't sort in the database query
+        if (!isAdmin) {
+          ordersData.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        }
         
         setOrders(ordersData);
       } catch (error) {

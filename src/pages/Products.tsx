@@ -40,7 +40,7 @@ const ProductsPage = () => {
       <div className="bg-primary text-primary-foreground py-8 md:py-12 animate-fade-in-down">
         <div className="container">
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-3">Our Shop</h1>
-          <p className="text-primary-foreground/90 text-lg max-w-2xl">Complete range of household cleaning products for homes and residential complexes</p>
+          <p className="text-primary-foreground/90 text-lg max-w-2xl">Complete range of cleaning products for homes, residential complexes, corporate offices, and hospitals.</p>
         </div>
       </div>
 
