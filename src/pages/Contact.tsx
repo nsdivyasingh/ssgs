@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { FloatingInput, FloatingTextarea } from "@/components/ui/floating-input";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -81,11 +80,11 @@ const ContactPage = () => {
                 <Button variant="outline" className="mt-4" onClick={() => setSubmitted(false)}>Send Another</Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <Input placeholder="Your Name" required />
-                <Input placeholder="Phone Number" type="tel" required />
-                <Input placeholder="Email (optional)" type="email" />
-                <Textarea placeholder="Your message..." rows={5} required />
+              <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+                <FloatingInput label="Your Name" required />
+                <FloatingInput label="Phone Number" type="tel" required />
+                <FloatingInput label="Email" type="email" />
+                <FloatingTextarea label="Your message..." required />
                 <Button type="submit" className="w-full" size="lg">Send Message</Button>
               </form>
             )}

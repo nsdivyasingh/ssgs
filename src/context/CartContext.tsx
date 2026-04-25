@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 import { Product } from "@/lib/products";
+import { useAuth } from "./AuthContext";
+import { db } from "@/lib/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export interface CartItem {
   product: Product;
@@ -23,30 +26,66 @@ const CART_STORAGE_KEY = "sgs_cart";
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   const [initialized, setInitialized] = useState(false);
+  const { user } = useAuth();
 
-  // Load cart from localStorage on mount
+  // Load cart from localStorage or Firestore on mount/user change
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(CART_STORAGE_KEY);
-      if (saved) {
-        setItems(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error("Failed to load cart from localStorage:", error);
-    }
-    setInitialized(true);
-  }, []);
-
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    if (initialized) {
+    const loadCart = async () => {
       try {
-        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+        if (user) {
+          const cartDoc = await getDoc(doc(db, "carts", user.uid));
+          if (cartDoc.exists()) {
+            setItems(cartDoc.data().items || []);
+          } else {
+            // Merge localStorage if any
+            const saved = localStorage.getItem(CART_STORAGE_KEY);
+            if (saved) {
+              const localItems = JSON.parse(saved);
+              setItems(localItems);
+              await setDoc(doc(db, "carts", user.uid), {
+                userId: user.uid,
+                items: localItems,
+                updatedAt: new Date().toISOString()
+              });
+            }
+          }
+        } else {
+          const saved = localStorage.getItem(CART_STORAGE_KEY);
+          if (saved) {
+            setItems(JSON.parse(saved));
+          }
+        }
       } catch (error) {
-        console.error("Failed to save cart to localStorage:", error);
+        console.error("Failed to load cart:", error);
       }
-    }
-  }, [items, initialized]);
+      setInitialized(true);
+    };
+
+    loadCart();
+  }, [user]);
+
+  // Save cart whenever it changes
+  useEffect(() => {
+    const saveCart = async () => {
+      if (!initialized) return;
+      
+      try {
+        if (user) {
+          await setDoc(doc(db, "carts", user.uid), {
+            userId: user.uid,
+            items,
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
+        } else {
+          localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+        }
+      } catch (error) {
+        console.error("Failed to save cart:", error);
+      }
+    };
+    
+    saveCart();
+  }, [items, initialized, user]);
 
   const addItem = useCallback((product: Product) => {
     setItems(prev => {

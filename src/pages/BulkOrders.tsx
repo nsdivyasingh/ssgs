@@ -1,18 +1,54 @@
 import { motion } from "framer-motion";
 import { Building2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { FloatingInput, FloatingTextarea } from "@/components/ui/floating-input";
 import { useState } from "react";
 import { toast } from "sonner";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const BulkOrdersPage = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    orgName: "",
+    contactPerson: "",
+    phone: "",
+    email: "",
+    units: "",
+    requirements: ""
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Bulk order inquiry submitted! We'll contact you within 24 hours.");
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      await addDoc(collection(db, "bulkOrders"), {
+        orgName: formData.orgName,
+        contactPerson: formData.contactPerson,
+        phone: formData.phone,
+        email: formData.email,
+        numberOfUnits: formData.units ? parseInt(formData.units) : 0,
+        requirements: formData.requirements,
+        status: "new",
+        createdAt: new Date().toISOString()
+      });
+      toast.success("Bulk order inquiry submitted! We'll contact you within 24 hours.");
+      setSubmitted(true);
+      setFormData({
+        orgName: "",
+        contactPerson: "",
+        phone: "",
+        email: "",
+        units: "",
+        requirements: ""
+      });
+    } catch (error) {
+      console.error("Error submitting bulk order:", error);
+      toast.error("Failed to submit inquiry. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -66,14 +102,16 @@ const BulkOrdersPage = () => {
                   <Button variant="outline" className="mt-4" onClick={() => setSubmitted(false)}>Submit Another</Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <Input placeholder="Organization / Society Name" required />
-                  <Input placeholder="Contact Person Name" required />
-                  <Input placeholder="Phone Number" type="tel" required />
-                  <Input placeholder="Email" type="email" required />
-                  <Input placeholder="Number of Units / Flats" type="number" />
-                  <Textarea placeholder="Describe your requirements (products needed, frequency, etc.)" rows={4} required />
-                  <Button type="submit" className="w-full" size="lg">Submit Inquiry</Button>
+                <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+                  <FloatingInput label="Organization / Society Name" required value={formData.orgName} onChange={e => setFormData({...formData, orgName: e.target.value})} />
+                  <FloatingInput label="Contact Person Name" required value={formData.contactPerson} onChange={e => setFormData({...formData, contactPerson: e.target.value})} />
+                  <FloatingInput label="Phone Number" type="tel" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
+                  <FloatingInput label="Email" type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                  <FloatingInput label="Number of Units / Flats" type="number" value={formData.units} onChange={e => setFormData({...formData, units: e.target.value})} />
+                  <FloatingTextarea label="Describe your requirements (products needed, frequency, etc.)" required value={formData.requirements} onChange={e => setFormData({...formData, requirements: e.target.value})} />
+                  <Button type="submit" className="w-full" size="lg" disabled={loading}>
+                    {loading ? "Submitting..." : "Submit Inquiry"}
+                  </Button>
                 </form>
               )}
             </div>

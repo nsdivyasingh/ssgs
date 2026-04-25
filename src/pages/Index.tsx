@@ -175,7 +175,7 @@ const HomePage = () => {
               {[
                 { label: "500+", desc: "Happy Customers" },
                 { label: "50+", desc: "Apartments Served" },
-                { label: "45+", desc: "Products Available" },
+                { label: "90+", desc: "Products Available" },
                 { label: "5+", desc: "Years Experience" },
               ].map((stat, i) => (
                 <div key={i} className="rounded-xl border bg-card p-6 text-center">

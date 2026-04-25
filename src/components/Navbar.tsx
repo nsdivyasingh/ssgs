@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, Menu, X, Search, Phone } from "lucide-react";
+import { ShoppingCart, Menu, X, Search, Phone, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
@@ -17,6 +18,7 @@ const navLinks = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { totalItems } = useCart();
+  const { user, isAdmin } = useAuth();
   const location = useLocation();
 
   return (
@@ -55,6 +57,19 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          {/* Admin Link */}
+          {(!user || isAdmin) && (
+            <Link
+              to={user && isAdmin ? "/admin" : "/admin-login"}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-smooth duration-300 ${
+                location.pathname.includes("admin")
+                  ? "bg-blue-600/10 text-blue-600"
+                  : "text-blue-600/70 hover:text-blue-600 hover:bg-blue-50 hover:-translate-y-0.5"
+              }`}
+            >
+              {user && isAdmin ? "Admin Dashboard" : "Admin Portal"}
+            </Link>
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -73,6 +88,19 @@ export default function Navbar() {
               )}
             </Button>
           </Link>
+          {user ? (
+            <Link to="/profile">
+              <Button variant="ghost" size="icon" className="text-foreground/70 transition-smooth duration-200 hover:scale-110 hover:text-foreground">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/login" className="hidden sm:block">
+              <Button variant="outline" size="sm" className="ml-2">
+                Sign In
+              </Button>
+            </Link>
+          )}
           <Button variant="ghost" size="icon" className="md:hidden text-foreground/70 transition-smooth duration-200 hover:scale-110" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
@@ -94,6 +122,29 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          
+          {/* Mobile Admin Link */}
+          {(!user || isAdmin) && (
+            <Link
+              to={user && isAdmin ? "/admin" : "/admin-login"}
+              onClick={() => setMobileOpen(false)}
+              className={`block px-6 py-3 text-sm font-medium transition-smooth duration-300 hover:bg-blue-50 ${
+                location.pathname.includes("admin") ? "bg-blue-600/10 text-blue-600" : "text-blue-600/70"
+              }`}
+            >
+              {user && isAdmin ? "Admin Dashboard" : "Admin Portal"}
+            </Link>
+          )}
+
+          {!user && (
+            <Link
+              to="/login"
+              onClick={() => setMobileOpen(false)}
+              className="block px-6 py-3 text-sm font-medium text-primary hover:bg-primary/5"
+            >
+              Sign In
+            </Link>
+          )}
         </nav>
       )}
     </header>

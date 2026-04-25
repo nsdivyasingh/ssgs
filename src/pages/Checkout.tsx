@@ -1,29 +1,56 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingCart, Phone, Mail, MapPin, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { FloatingInput, FloatingTextarea } from "@/components/ui/floating-input";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/context/CartContext";
 import { useOrders } from "@/context/OrdersContext";
+import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { items, totalPrice, clearCart } = useCart();
   const { addOrder } = useOrders();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<"cash" | "upi" | "card">("cash");
 
   const [formData, setFormData] = useState({
-    customerName: "",
+    customerName: user?.displayName || "",
     customerPhone: "",
-    customerEmail: "",
+    customerEmail: user?.email || "",
     address: "",
     notes: "",
   });
+
+  // Pre-fill user data if available
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            setFormData(prev => ({
+              ...prev,
+              customerName: data.displayName || user.displayName || prev.customerName,
+              customerPhone: data.phone || prev.customerPhone,
+              address: data.address || prev.address
+            }));
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+    fetchUserData();
+  }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -32,6 +59,12 @@ const CheckoutPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!user) {
+      toast.error("Please login to place an order");
+      navigate("/login", { state: { from: location } });
+      return;
+    }
 
     if (!formData.customerName || !formData.customerPhone || !formData.address) {
       toast.error("Please fill in all required fields");
@@ -49,7 +82,7 @@ const CheckoutPage = () => {
       // Simulate processing delay
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      const order = addOrder({
+      const order = await addOrder({
         customerName: formData.customerName,
         customerPhone: formData.customerPhone,
         customerEmail: formData.customerEmail,
@@ -63,7 +96,7 @@ const CheckoutPage = () => {
 
       toast.success(`Order placed! Order #${order.orderNumber}`);
       clearCart();
-      
+
       // Redirect to order confirmation
       setTimeout(() => {
         navigate("/");
@@ -138,67 +171,44 @@ const CheckoutPage = () => {
                 <h2 className="font-display font-bold mb-4 flex items-center gap-2">
                   <ShoppingCart className="h-5 w-5" /> Delivery Details
                 </h2>
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Full Name *</label>
-                    <Input
-                      name="customerName"
-                      value={formData.customerName}
+                <div className="space-y-6 mt-4">
+                  <FloatingInput
+                    name="customerName"
+                    label="Full Name *"
+                    value={formData.customerName}
+                    onChange={handleChange}
+                    required
+                  />
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <FloatingInput
+                      name="customerPhone"
+                      label="Phone Number (10-digit) *"
+                      value={formData.customerPhone}
                       onChange={handleChange}
-                      placeholder="Your name"
+                      type="tel"
                       required
                     />
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-1">
-                        <Phone className="h-4 w-4" /> Phone Number *
-                      </label>
-                      <Input
-                        name="customerPhone"
-                        value={formData.customerPhone}
-                        onChange={handleChange}
-                        placeholder="10-digit number"
-                        type="tel"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium mb-2 block flex items-center gap-1">
-                        <Mail className="h-4 w-4" /> Email (Optional)
-                      </label>
-                      <Input
-                        name="customerEmail"
-                        value={formData.customerEmail}
-                        onChange={handleChange}
-                        placeholder="your@email.com"
-                        type="email"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block flex items-center gap-1">
-                      <MapPin className="h-4 w-4" /> Delivery Address *
-                    </label>
-                    <Textarea
-                      name="address"
-                      value={formData.address}
+                    <FloatingInput
+                      name="customerEmail"
+                      label="Email"
+                      value={formData.customerEmail}
                       onChange={handleChange}
-                      placeholder="Apartment/Building, Street, Area, City"
-                      rows={3}
-                      required
+                      type="email"
                     />
                   </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Special Instructions (Optional)</label>
-                    <Textarea
-                      name="notes"
-                      value={formData.notes}
-                      onChange={handleChange}
-                      placeholder="Any special instructions for delivery..."
-                      rows={2}
-                    />
-                  </div>
+                  <FloatingTextarea
+                    name="address"
+                    label="Delivery Address (Apartment, Street, Area) *"
+                    value={formData.address}
+                    onChange={handleChange}
+                    required
+                  />
+                  <FloatingTextarea
+                    name="notes"
+                    label="Special Instructions (Optional)"
+                    value={formData.notes}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 

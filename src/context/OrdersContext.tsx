@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { CartItem } from "./CartContext";
+import { useAuth } from "./AuthContext";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, updateDoc, doc, getDocs, query, where, orderBy, serverTimestamp, deleteDoc } from "firebase/firestore";
 
 export interface Order {
   id: string;
@@ -18,10 +21,11 @@ export interface Order {
 
 interface OrdersContextType {
   orders: Order[];
-  addOrder: (order: Omit<Order, "id" | "orderNumber" | "createdAt">) => Order;
-  updateOrderStatus: (orderId: string, status: Order["status"]) => void;
+  addOrder: (order: Omit<Order, "id" | "orderNumber" | "createdAt" | "userId">) => Promise<Order>;
+  updateOrderStatus: (orderId: string, status: Order["status"]) => Promise<void>;
   getOrder: (orderId: string) => Order | undefined;
-  deleteOrder: (orderId: string) => void;
+  deleteOrder: (orderId: string) => Promise<void>;
+  fetchAllOrders: () => Promise<void>; // For admin
 }
 
 const OrdersContext = createContext<OrdersContextType | undefined>(undefined);
@@ -30,47 +34,64 @@ const ORDERS_STORAGE_KEY = "sgs_orders";
 
 export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [orders, setOrders] = useState<Order[]>([]);
-  const [initialized, setInitialized] = useState(false);
+  const { user, isAdmin } = useAuth();
 
-  // Load orders from localStorage
+  // Load orders from Firestore
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(ORDERS_STORAGE_KEY);
-      if (saved) {
-        setOrders(JSON.parse(saved));
+    const fetchOrders = async () => {
+      if (!user) {
+        setOrders([]);
+        return;
       }
-    } catch (error) {
-      console.error("Failed to load orders from localStorage:", error);
-    }
-    setInitialized(true);
-  }, []);
-
-  // Save orders to localStorage
-  useEffect(() => {
-    if (initialized) {
+      
       try {
-        localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(orders));
+        let q;
+        if (isAdmin) {
+          // Admin sees all orders
+          q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+        } else {
+          // User sees only their orders
+          q = query(collection(db, "orders"), where("userId", "==", user.uid), orderBy("createdAt", "desc"));
+        }
+        
+        const querySnapshot = await getDocs(q);
+        const ordersData = querySnapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id
+        })) as Order[];
+        
+        setOrders(ordersData);
       } catch (error) {
-        console.error("Failed to save orders to localStorage:", error);
+        console.error("Failed to fetch orders:", error);
       }
-    }
-  }, [orders, initialized]);
+    };
 
-  const addOrder = (orderData: Omit<Order, "id" | "orderNumber" | "createdAt">) => {
-    const id = Math.random().toString(36).substr(2, 9);
+    fetchOrders();
+  }, [user, isAdmin]);
+
+  const addOrder = async (orderData: Omit<Order, "id" | "orderNumber" | "createdAt" | "userId">) => {
+    if (!user) throw new Error("Must be logged in to place an order");
+
     const orderNumber = `SGS-${Date.now()}`;
-    const order: Order = {
+    const newOrderData = {
       ...orderData,
-      id,
       orderNumber,
+      userId: user.uid,
       createdAt: new Date().toISOString(),
     };
+
+    const docRef = await addDoc(collection(db, "orders"), newOrderData);
+    const order: Order = { ...newOrderData, id: docRef.id } as Order;
 
     setOrders(prev => [order, ...prev]);
     return order;
   };
 
-  const updateOrderStatus = (orderId: string, status: Order["status"]) => {
+  const updateOrderStatus = async (orderId: string, status: Order["status"]) => {
+    if (!isAdmin) throw new Error("Only admins can update order status");
+    
+    await updateDoc(doc(db, "orders", orderId), { status });
+    
     setOrders(prev =>
       prev.map(order =>
         order.id === orderId ? { ...order, status } : order
@@ -82,12 +103,30 @@ export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     return orders.find(order => order.id === orderId);
   };
 
-  const deleteOrder = (orderId: string) => {
+  const deleteOrder = async (orderId: string) => {
+    if (!isAdmin) throw new Error("Only admins can delete orders");
+    
+    await deleteDoc(doc(db, "orders", orderId));
     setOrders(prev => prev.filter(order => order.id !== orderId));
+  };
+  
+  const fetchAllOrders = async () => {
+    if (!isAdmin) return;
+    try {
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      const ordersData = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+      })) as Order[];
+      setOrders(ordersData);
+    } catch (error) {
+       console.error("Failed to fetch all orders:", error);
+    }
   };
 
   return (
-    <OrdersContext.Provider value={{ orders, addOrder, updateOrderStatus, getOrder, deleteOrder }}>
+    <OrdersContext.Provider value={{ orders, addOrder, updateOrderStatus, getOrder, deleteOrder, fetchAllOrders }}>
       {children}
     </OrdersContext.Provider>
   );

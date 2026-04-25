@@ -30,7 +30,12 @@ const CartPage = () => {
               <div className="flex-1 min-w-0">
                 <h3 className="font-display font-semibold">{item.product.name}</h3>
                 <p className="text-sm text-muted-foreground mb-2">{item.product.description}</p>
-                <p className="text-primary font-bold">₹{item.product.price}</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-primary font-bold">₹{item.product.price}</p>
+                  {item.product.originalPrice > item.product.price && (
+                    <p className="text-xs text-muted-foreground line-through">₹{item.product.originalPrice}</p>
+                  )}
+                </div>
                 <div className="flex items-center gap-2 mt-3">
                   <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => updateQuantity(item.product.id, item.quantity - 1)}>
                     <Minus className="h-4 w-4" />

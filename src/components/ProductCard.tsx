@@ -63,15 +63,25 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.description}
         </motion.p>
         <div className="mt-auto flex items-center justify-between">
-          <motion.span 
-            className="font-display font-bold text-lg text-primary"
+          <motion.div 
+            className="flex flex-col"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.25, duration: 0.3 }}
           >
-            ₹{product.price}
-          </motion.span>
+            <div className="flex items-center gap-2">
+              <span className="font-display font-bold text-lg text-primary">₹{product.price}</span>
+              {product.originalPrice > product.price && (
+                <span className="text-xs text-muted-foreground line-through">₹{product.originalPrice}</span>
+              )}
+            </div>
+            {product.originalPrice > product.price && (
+              <span className="text-xs font-semibold text-green-600">
+                {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% off
+              </span>
+            )}
+          </motion.div>
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
