@@ -87,7 +87,7 @@ const AdminLoginPage = () => {
       >
         <div className="text-center mb-8 flex flex-col items-center">
           <div className="w-20 h-20 bg-white rounded-2xl overflow-hidden mb-6 shadow-md border p-1 flex items-center justify-center">
-            <img src="/favicon.jpg" alt="SSGS Logo" className="w-full h-full object-cover rounded-xl" />
+            <img src="/favicon.jpg?v=3" alt="SSGS Logo" className="w-full h-full object-cover rounded-xl" />
           </div>
           <h1 className="font-display text-3xl font-bold mb-2 tracking-tight">Admin Portal</h1>
           <p className="text-muted-foreground text-sm">Secure access for authorized personnel</p>
