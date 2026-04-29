@@ -26,7 +26,7 @@ const CartPage = () => {
         <div className="lg:col-span-2 space-y-4">
           {items.map(item => (
             <div key={item.product.id} className="flex gap-4 rounded-xl border bg-card p-4 hover:shadow-md transition-shadow">
-              <img src={item.product.image} alt={item.product.name} className="h-24 w-24 rounded-lg object-cover" />
+              <img src={item.product.image} alt={item.product.name} className="h-24 w-24 rounded-lg object-cover" loading="lazy" />
               <div className="flex-1 min-w-0">
                 <h3 className="font-display font-semibold">{item.product.name}</h3>
                 <p className="text-sm text-muted-foreground mb-2">{item.product.description}</p>

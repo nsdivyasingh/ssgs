@@ -2,12 +2,16 @@ import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import QuantityStepper from "@/components/ui/QuantityStepper";
 import { useCart } from "@/context/CartContext";
 import { Product } from "@/lib/products";
 import { toast } from "sonner";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { addItem } = useCart();
+  const { items, addItem, updateQuantity, removeItem } = useCart();
+  const cartItem = items.find((item) => item.product.id === product.id);
+  const inCart = Boolean(cartItem);
+  const cartQuantity = cartItem?.quantity ?? 1;
 
   const handleAdd = () => {
     addItem(product);
@@ -21,7 +25,7 @@ export default function ProductCard({ product }: { product: Product }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className="group relative flex flex-col overflow-hidden rounded-xl border bg-card shadow-[var(--card-shadow)] hover:shadow-[var(--card-shadow-hover)] transition-all duration-300"
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-primary/10 bg-gradient-to-b from-rose-50/60 via-card to-primary/5 shadow-[var(--card-shadow)] hover:shadow-[var(--card-shadow-hover)] transition-all duration-300"
     >
       {product.badge && (
         <motion.div
@@ -82,14 +86,22 @@ export default function ProductCard({ product }: { product: Product }) {
               </span>
             )}
           </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Button size="sm" onClick={handleAdd} className="gap-1.5 transition-all duration-200">
-              <ShoppingCart className="h-3.5 w-3.5" /> Add
-            </Button>
+          <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+            {!inCart ? (
+              <Button
+                size="sm"
+                onClick={handleAdd}
+                className="gap-1.5 transition-all duration-150 active:scale-95"
+              >
+                <ShoppingCart className="h-3.5 w-3.5" /> Add to Cart
+              </Button>
+            ) : (
+              <QuantityStepper
+                value={cartQuantity}
+                onChange={(qty) => updateQuantity(product.id, qty)}
+                onRemove={() => removeItem(product.id)}
+              />
+            )}
           </motion.div>
         </div>
       </div>

@@ -119,4 +119,62 @@
   .btn-smooth:active {
     @apply translate-y-0;
   }
+
+  .marquee-track {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-content {
+    display: inline-flex;
+    min-width: 200%;
+    align-items: center;
+    gap: 2.5rem;
+    padding-inline: 1rem;
+    animation: marquee-left 26s linear infinite;
+  }
+
+  @keyframes marquee-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Anti-Gravity: Shimmer effect for skeleton */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.4),
+      transparent
+    );
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Anti-Gravity: Button Glow */
+  .btn-glow {
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .btn-glow:hover {
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 8px 20px rgba(0,0,0,0.15);
+  }
 }

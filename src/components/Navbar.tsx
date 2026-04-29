@@ -25,17 +25,33 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 animate-fade-in-down">
       {/* Top bar */}
       <div className="bg-primary text-primary-foreground">
-        <div className="container flex items-center justify-between py-1.5 text-sm transition-smooth duration-300">
-          <span>🚚 Free delivery within 1 km!</span>
-          <a href="tel:+919845329179" className="flex items-center gap-1 hover:underline transition-smooth duration-200">
-            <Phone className="h-3 w-3" /> +91 98453 29179
-          </a>
+        <div className="overflow-hidden py-1.5 text-sm">
+          <div className="marquee-track">
+            <div className="marquee-content">
+              <span>🚚 Free delivery within 1 km!</span>
+              <a href="tel:+919845329179" className="flex items-center gap-1 hover:underline transition-smooth duration-200">
+                <Phone className="h-3 w-3" /> Contact us on +91 98453 29179
+              </a>
+              <span>🏢 Bulk apartment supply available</span>
+              <span>✅ Trusted quality products at fair prices</span>
+              <span>⚡ Fast doorstep service in your area</span>
+              <span>🎁 Ask for combo deals and seasonal offers</span>
+              <span>🚚 Free delivery within 1 km!</span>
+              <a href="tel:+919845329179" className="flex items-center gap-1 hover:underline transition-smooth duration-200">
+                <Phone className="h-3 w-3" /> Contact us on +91 98453 29179
+              </a>
+              <span>🏢 Bulk apartment supply available</span>
+              <span>✅ Trusted quality products at fair prices</span>
+              <span>⚡ Fast doorstep service in your area</span>
+              <span>🎁 Ask for combo deals and seasonal offers</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="container flex items-center justify-between py-3">
         <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-smooth duration-200">
-          <img src="/favicon.jpg?v=3" alt="Siddeshwara Global Services Logo" className="h-10 w-10 rounded-lg object-cover" />
+          <img src="/favicon.jpg?v=3" alt="Siddeshwara Global Services Logo" className="h-10 w-10 rounded-lg object-cover" loading="lazy" />
           <div className="hidden sm:block">
             <div className="font-display font-bold text-lg leading-tight">Siddeshwara</div>
             <div className="text-xs text-muted-foreground leading-tight">Global Services</div>
@@ -90,7 +106,7 @@ export default function Navbar() {
           </Link>
           {user ? (
             <Link to="/profile">
-              <Button variant="ghost" size="icon" className="text-foreground/70 transition-smooth duration-200 hover:scale-110 hover:text-foreground">
+              <Button variant="ghost" size="icon" className="hidden md:inline-flex text-foreground/70 transition-smooth duration-200 hover:scale-110 hover:text-foreground">
                 <User className="h-5 w-5" />
               </Button>
             </Link>
@@ -133,6 +149,16 @@ export default function Navbar() {
               }`}
             >
               {user && isAdmin ? "Admin Dashboard" : "Admin Portal"}
+            </Link>
+          )}
+
+          {user && (
+            <Link
+              to="/profile"
+              onClick={() => setMobileOpen(false)}
+              className="block px-6 py-3 text-sm font-medium transition-smooth duration-300 hover:bg-primary/5 text-foreground/70"
+            >
+              Profile
             </Link>
           )}
 

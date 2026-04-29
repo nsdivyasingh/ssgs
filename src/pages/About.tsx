@@ -5,11 +5,38 @@ const AboutPage = () => {
   return (
     <div className="container py-8 md:py-12">
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
-        <h1 className="font-display text-3xl font-bold mb-2">About Siddeshwara Global Services</h1>
-        <p className="text-muted-foreground mb-10 max-w-2xl">
-          Your trusted partner for quality household and apartment cleaning products
-        </p>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
 
+{/* LEFT — TITLE */}
+<div className="max-w-2xl">
+  <h1 className="font-display text-3xl md:text-4xl font-bold mb-2 text-primary">
+    About Siddeshwara Global Services
+  </h1>
+  <p className="text-muted-foreground text-base">
+    Your trusted partner for quality household and apartment cleaning products
+  </p>
+</div>
+
+{/* RIGHT — LOGO */}
+<div className="flex items-center gap-3">
+  <img
+    src="/favicon.jpg?v=3"
+    alt="Siddeshwara Global Services Logo"
+    className="h-16 w-16 md:h-20 md:w-20 rounded-xl object-cover border border-border"
+    loading="lazy"
+  />
+  {/* <div>
+    <p className="font-display text-base font-semibold text-primary leading-tight">
+      Siddeshwara
+    </p>
+    <p className="text-sm text-muted-foreground leading-tight">
+      Global Services
+    </p>
+  </div> */}
+</div>
+
+</div>
+        
         <div className="prose prose-sm max-w-none mb-12">
           <div className="rounded-xl border bg-card p-8 mb-8">
             <h2 className="font-display text-xl font-bold mb-4 mt-0">Our Story</h2>
