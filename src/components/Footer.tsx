@@ -40,9 +40,35 @@ export default function Footer() {
           <div className="animate-fade-in-up transition-all duration-300" style={{ animationDelay: '0.3s' }}>
             <h4 className="font-display font-semibold mb-4 transition-smooth duration-300">Contact</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li className="flex items-start gap-2 transition-smooth duration-200 hover:text-foreground"><MapPin className="h-4 w-4 mt-0.5 shrink-0" /> Siddeshwara Global Services, Begur Hobli, 191, 1st Cross Rd, AECS Layout - A Block, Singasandra, Bengaluru, Karnataka 560068</li>
-              <li className="flex items-center gap-2 transition-smooth duration-200 hover:text-foreground cursor-pointer"><Phone className="h-4 w-4 shrink-0" /> +91 98453 29179</li>
-              <li className="flex items-center gap-2 transition-smooth duration-200 hover:text-foreground cursor-pointer"><Mail className="h-4 w-4 shrink-0" /> sgs.blr@outlook.com</li>
+              <li>
+                <a
+                  href="https://maps.app.goo.gl/Qry3u4BmiU62Ppaz7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 transition-smooth duration-200 hover:text-foreground"
+                >
+                  <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
+                  Siddeshwara Global Services, Begur Hobli, 191, 1st Cross Rd, AECS Layout - A Block, Singasandra, Bengaluru, Karnataka 560068
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+919845329179"
+                  className="flex items-center gap-2 transition-smooth duration-200 hover:text-foreground"
+                >
+                  <Phone className="h-4 w-4 shrink-0" />
+                  +91 98453 29179
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:sgs.blr@outlook.com"
+                  className="flex items-center gap-2 transition-smooth duration-200 hover:text-foreground"
+                >
+                  <Mail className="h-4 w-4 shrink-0" />
+                  sgs.blr@outlook.com
+                </a>
+              </li>
             </ul>
           </div>
         </div>

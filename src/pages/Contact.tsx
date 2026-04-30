@@ -18,12 +18,12 @@ const ContactPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic Validation
     if (formData.name.trim().length < 2) {
       return toast.error("Please enter a valid name.");
     }
-    
+
     const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(formData.phone.replace(/\D/g, ''))) {
       return toast.error("Please enter a valid 10-digit phone number.");
@@ -37,7 +37,7 @@ const ContactPage = () => {
     if (formData.message.trim().length < 10) {
       return toast.error("Please enter a message with at least 10 characters.");
     }
-    
+
     try {
       await addDoc(collection(db, "messages"), {
         name: formData.name,
@@ -47,10 +47,10 @@ const ContactPage = () => {
         status: "new",
         createdAt: serverTimestamp()
       });
-      
+
       toast.success("Message sent successfully! We'll get back to you soon.");
       setSubmitted(true);
-      
+
       // Reset form after a delay
       setTimeout(() => {
         setSubmitted(false);
@@ -72,9 +72,9 @@ const ContactPage = () => {
           <div className="space-y-6">
             <div className="rounded-xl border bg-card p-6 space-y-4">
               {[
-                { icon: MapPin, label: "Address", value: "Siddeshwara Global Services, Begur Hobli, 191, 1st Cross Rd, near Govt Society, AECS Layout - A Block, Singasandra, Bengaluru, Karnataka 560068", href: "https://maps.google.com/?q=12.9179,77.6457" },
-                { icon: Phone, label: "Phone", value: "+91 98453 29179", href: "tel:+919845329179" },
-                { icon: Mail, label: "Email", value: "sgs.blr@outlook.com", href: "mailto:sgs.blr@outlook.com" },
+                { icon: MapPin, label: "Address", value: "Siddeshwara Global Services, Begur Hobli, 191, 1st Cross Rd, near Govt Society, AECS Layout - A Block, Singasandra, Bengaluru, Karnataka 560068", href: "https://maps.app.goo.gl/Qry3u4BmiU62Ppaz7", target: "_blank" },
+                { icon: Phone, label: "Phone", value: "+91 98453 29179", href: "tel:+919845329179", target: "_blank" },
+                { icon: Mail, label: "Email", value: "sgs.blr@outlook.com", href: "mailto:sgs.blr@outlook.com", target: "_blank" },
                 { icon: Clock, label: "Hours", value: "Mon-Sat: 8:00 AM - 9:00 PM\nSunday: 9:00 AM - 6:00 PM" },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -82,7 +82,14 @@ const ContactPage = () => {
                   <div>
                     <div className="text-sm font-medium">{item.label}</div>
                     {item.href ? (
-                      <a href={item.href} className="text-sm text-muted-foreground hover:text-primary transition-colors whitespace-pre-line">{item.value}</a>
+                      <a
+                        href={item.href}
+                        target={item.target || "_blank"}
+                        rel="noopener noreferrer"
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors whitespace-pre-line"
+                      >
+                        {item.value}
+                      </a>
                     ) : (
                       <div className="text-sm text-muted-foreground whitespace-pre-line">{item.value}</div>
                     )}
@@ -128,31 +135,31 @@ const ContactPage = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-                <FloatingInput 
-                  label="Your Name" 
-                  required 
+                <FloatingInput
+                  label="Your Name"
+                  required
                   value={formData.name}
-                  onChange={e => setFormData({...formData, name: e.target.value})}
+                  onChange={e => setFormData({ ...formData, name: e.target.value })}
                 />
-                <FloatingInput 
-                  label="Phone Number" 
-                  type="tel" 
-                  required 
+                <FloatingInput
+                  label="Phone Number"
+                  type="tel"
+                  required
                   value={formData.phone}
-                  onChange={e => setFormData({...formData, phone: e.target.value})}
+                  onChange={e => setFormData({ ...formData, phone: e.target.value })}
                 />
-                <FloatingInput 
-                  label="Email" 
-                  type="email" 
+                <FloatingInput
+                  label="Email"
+                  type="email"
                   required
                   value={formData.email}
-                  onChange={e => setFormData({...formData, email: e.target.value})}
+                  onChange={e => setFormData({ ...formData, email: e.target.value })}
                 />
-                <FloatingTextarea 
-                  label="Your message..." 
-                  required 
+                <FloatingTextarea
+                  label="Your message..."
+                  required
                   value={formData.message}
-                  onChange={e => setFormData({...formData, message: e.target.value})}
+                  onChange={e => setFormData({ ...formData, message: e.target.value })}
                 />
                 <Button type="submit" className="w-full" size="lg">Send Message</Button>
               </form>

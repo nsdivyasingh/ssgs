@@ -272,7 +272,7 @@ const HomePage = () => {
                   <h3 className="font-display font-bold text-lg mb-4">Contact Information</h3>
                   <div className="space-y-4">
                     {[
-                      { icon: MapPin, label: "Address", value: "Siddeshwara Global Services, Begur Hobli, 191, 1st Cross Rd, near Govt Society, AECS Layout - A Block, Singasandra, Bengaluru, Karnataka 560068", href: "https://maps.google.com/?q=12.9179,77.6457" },
+                      { icon: MapPin, label: "Address", value: "Siddeshwara Global Services, Begur Hobli, 191, 1st Cross Rd, near Govt Society, AECS Layout - A Block, Singasandra, Bengaluru, Karnataka 560068", href: "https://maps.app.goo.gl/Qry3u4BmiU62Ppaz7" },
                       { icon: Phone, label: "Phone", value: "+91 98453 29179", href: "tel:+919845329179" },
                       { icon: Mail, label: "Email", value: "sgs.blr@outlook.com", href: "mailto:sgs.blr@outlook.com" },
                     ].map((item, i) => (
