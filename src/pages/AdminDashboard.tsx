@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { 
   BarChart, Eye, Trash2, AlertCircle, CheckCircle, Truck, Package, 
   Users, LayoutDashboard, ShoppingCart, ListOrdered, Mail, Search, 
-  MoreHorizontal, LogOut, Loader2 
+  MoreHorizontal, LogOut, Loader2, Lock, Phone, MapPin, CalendarDays, CreditCard
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -165,6 +165,12 @@ export default function AdminDashboard() {
   ];
 
   const totalRevenue = orders.filter(o => o.status !== "cancelled").reduce((sum, o) => sum + o.totalAmount, 0);
+  const selectedOrderItemsCount = selectedOrder
+    ? selectedOrder.items.reduce((sum, item) => sum + item.quantity, 0)
+    : 0;
+  const selectedOrderPaymentLabel = selectedOrder
+    ? selectedOrder.paymentMethod.charAt(0).toUpperCase() + selectedOrder.paymentMethod.slice(1)
+    : "";
 
   return (
     <SidebarProvider>
@@ -558,33 +564,56 @@ export default function AdminDashboard() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 onClick={(e) => e.stopPropagation()}
-                className="max-w-2xl w-full bg-card border rounded-xl shadow-2xl p-0 overflow-hidden flex flex-col max-h-[90vh]"
+                className="max-w-3xl w-full bg-card border rounded-xl shadow-2xl p-0 overflow-hidden flex flex-col max-h-[90vh]"
               >
-                <div className="p-6 border-b bg-muted/30 flex justify-between items-start">
+                <div className="p-6 border-b bg-muted/30 flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-start">
                   <div>
                     <h2 className="font-display text-2xl font-bold">Order {selectedOrder.orderNumber}</h2>
-                    <p className="text-sm text-muted-foreground">{new Date(selectedOrder.createdAt).toLocaleString()}</p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
+                      <CalendarDays className="h-4 w-4" />
+                      {new Date(selectedOrder.createdAt).toLocaleString()}
+                    </p>
                   </div>
-                  <Badge className={statusConfig[selectedOrder.status]?.color || ''} variant="secondary">
-                    {statusConfig[selectedOrder.status]?.label || selectedOrder.status}
-                  </Badge>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge className={statusConfig[selectedOrder.status]?.color || ''} variant="secondary">
+                      {statusConfig[selectedOrder.status]?.label || selectedOrder.status}
+                    </Badge>
+                    <Badge variant="outline">{selectedOrderItemsCount} items</Badge>
+                    <Badge variant="outline">
+                      <CreditCard className="h-3.5 w-3.5 mr-1" />
+                      {selectedOrderPaymentLabel}
+                    </Badge>
+                  </div>
                 </div>
 
                 <div className="p-6 overflow-y-auto space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-6 text-sm">
-                    <div className="space-y-1">
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    <div className="rounded-lg border bg-muted/20 p-4 space-y-2">
                       <span className="font-semibold text-muted-foreground uppercase text-xs tracking-wider">Customer Details</span>
                       <div className="font-medium">{selectedOrder.customerName}</div>
-                      <div>{selectedOrder.customerPhone}</div>
+                      <a href={`tel:${selectedOrder.customerPhone}`} className="flex items-center gap-2 hover:text-primary transition-colors">
+                        <Phone className="h-4 w-4" />
+                        {selectedOrder.customerPhone}
+                      </a>
+                      <a href={`mailto:${selectedOrder.customerEmail}`} className="flex items-center gap-2 hover:text-primary transition-colors break-all">
+                        <Mail className="h-4 w-4" />
+                        {selectedOrder.customerEmail}
+                      </a>
                     </div>
-                    <div className="space-y-1">
+                    <div className="rounded-lg border bg-muted/20 p-4 space-y-2">
                       <span className="font-semibold text-muted-foreground uppercase text-xs tracking-wider">Delivery Address</span>
-                      <div>{selectedOrder.address}</div>
+                      <div className="flex items-start gap-2">
+                        <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
+                        <span>{selectedOrder.address}</span>
+                      </div>
                     </div>
                   </div>
 
                   <div>
-                    <span className="font-semibold text-muted-foreground uppercase text-xs tracking-wider block mb-3">Order Items</span>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-semibold text-muted-foreground uppercase text-xs tracking-wider">Order Items</span>
+                      <span className="text-xs text-muted-foreground">Line-by-line breakdown</span>
+                    </div>
                     <div className="border rounded-lg overflow-hidden">
                       <Table>
                         <TableHeader className="bg-muted/30">
@@ -601,7 +630,7 @@ export default function AdminDashboard() {
                               <TableCell className="font-medium">{item.product.name}</TableCell>
                               <TableCell className="text-right">{item.quantity}</TableCell>
                               <TableCell className="text-right">₹{item.product.price}</TableCell>
-                              <TableCell className="text-right font-medium">₹{item.product.price * item.quantity}</TableCell>
+                              <TableCell className="text-right font-semibold">₹{item.product.price * item.quantity}</TableCell>
                             </TableRow>
                           ))}
                         </TableBody>
@@ -617,14 +646,22 @@ export default function AdminDashboard() {
                   )}
                 </div>
 
-                <div className="p-6 border-t bg-muted/10 flex items-center justify-between mt-auto">
+                <div className="p-6 border-t bg-muted/10 flex items-center justify-between gap-4 mt-auto">
                   <div className="font-display font-bold text-xl">
                     <span className="text-muted-foreground text-sm font-normal mr-2">Total Amount:</span>
                     <span className="text-primary">₹{selectedOrder.totalAmount}</span>
                   </div>
-                  <Button onClick={() => setSelectedOrder(null)} variant="outline">
-                    Close Details
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={() => window.location.href = `tel:${selectedOrder.customerPhone}`}
+                    >
+                      Call Customer
+                    </Button>
+                    <Button onClick={() => setSelectedOrder(null)} variant="outline">
+                      Close Details
+                    </Button>
+                  </div>
                 </div>
               </motion.div>
             </div>

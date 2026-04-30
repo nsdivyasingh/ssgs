@@ -75,7 +75,7 @@ const ContactPage = () => {
                 { icon: MapPin, label: "Address", value: "Siddeshwara Global Services, Begur Hobli, 191, 1st Cross Rd, near Govt Society, AECS Layout - A Block, Singasandra, Bengaluru, Karnataka 560068", href: "https://maps.app.goo.gl/Qry3u4BmiU62Ppaz7", target: "_blank" },
                 { icon: Phone, label: "Phone", value: "+91 98453 29179", href: "tel:+919845329179", target: "_blank" },
                 { icon: Mail, label: "Email", value: "sgs.blr@outlook.com", href: "mailto:sgs.blr@outlook.com", target: "_blank" },
-                { icon: Clock, label: "Hours", value: "Mon-Sat: 8:00 AM - 9:00 PM\nSunday: 9:00 AM - 6:00 PM" },
+                { icon: Clock, label: "Hours", value: "Mon-Sat: 8:00 AM - 9:00 PM\nSunday: 9:00 AM - 6:00 PM", href: undefined, target: undefined },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <item.icon className="h-5 w-5 text-primary shrink-0 mt-0.5" />

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShieldCheck, Loader2, Lock } from "lucide-react";
+import { ShieldCheck, Loader2, Lock, Eye, EyeOff, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FloatingInput } from "@/components/ui/floating-input";
 import { useAuth } from "@/context/AuthContext";
@@ -12,6 +12,7 @@ import { db } from "@/lib/firebase";
 const AdminLoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   
   const { signInWithEmail, user, logout } = useAuth();
@@ -93,6 +94,18 @@ const AdminLoginPage = () => {
           <p className="text-muted-foreground text-sm">Secure access for authorized personnel</p>
         </div>
 
+        <div className="mb-6 rounded-2xl border border-primary/20 bg-primary/5 p-4 text-sm">
+          <div className="flex items-center gap-2 font-medium text-primary mb-2">
+            <Sparkles className="h-4 w-4" />
+            Quick Access Tips
+          </div>
+          <ul className="space-y-1 text-muted-foreground">
+            <li>Use your registered admin email only.</li>
+            <li>Keep credentials private on shared devices.</li>
+            <li>Sign out after completing dashboard actions.</li>
+          </ul>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <FloatingInput 
             type="email" 
@@ -103,14 +116,24 @@ const AdminLoginPage = () => {
             className="h-14 bg-background/50 border-border/60 focus-within:bg-background"
           />
 
-          <FloatingInput 
-            type="password" 
-            label="Security Key / Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="h-14 bg-background/50 border-border/60 focus-within:bg-background"
-          />
+          <div className="relative">
+            <FloatingInput 
+              type={showPassword ? "text" : "password"} 
+              label="Security Key / Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="h-14 bg-background/50 border-border/60 focus-within:bg-background pr-12"
+            />
+            <button
+              type="button"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              onClick={() => setShowPassword(prev => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
 
           <Button 
             type="submit" 
@@ -129,9 +152,9 @@ const AdminLoginPage = () => {
         <div className="mt-8 pt-6 border-t border-border/40 text-center text-xs text-muted-foreground">
           <ShieldCheck className="h-4 w-4 mx-auto mb-2 opacity-50" />
           <p>Protected by SSGS Security Protocol.</p>
-          <a href="/login" className="text-primary hover:text-primary/80 font-medium hover:underline mt-3 inline-block transition-colors">
+          <Link to="/login" className="text-primary hover:text-primary/80 font-medium hover:underline mt-3 inline-block transition-colors">
             Return to Customer Login
-          </a>
+          </Link>
         </div>
       </motion.div>
     </div>

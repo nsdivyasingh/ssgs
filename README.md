@@ -55,3 +55,8 @@ This project is built with:
 ## How can I deploy this project?
 
 Build the project with `npm run build` and deploy the `dist` folder to your hosting provider.
+
+## Recent Updates
+
+- Fixed TypeScript union type errors on the Contact page.
+- Ensured external links (Google Maps, etc.) in the Contact and Footer sections correctly open in new tabs (`target="_blank"`) for better user experience.
