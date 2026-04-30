@@ -20,10 +20,10 @@ const HomePage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
+            <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-primary mb-4">
               🚚 Free delivery within 1 km
             </span>
-            <h1 className="font-display text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl text-balance">
+            <h1 className="font-display text-4xl font-extrabold leading-tight tracking-wide md:text-5xl lg:text-6xl text-balance">
               Quality Cleaning Products for{" "}
               <span className="text-primary">Homes & Apartments</span>
             </h1>
@@ -58,6 +58,7 @@ const HomePage = () => {
               src={heroImage}
               alt="Collection of household and cleaning supplies"
               className="w-full rounded-2xl shadow-xl"
+              loading="lazy"
             />
           </motion.div>
         </div>
@@ -67,7 +68,7 @@ const HomePage = () => {
       <section className="py-16">
         <div className="container">
           <h2 className="font-display text-2xl font-bold text-center mb-8">Shop by Category</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {categories.map((cat, i) => (
               <motion.div
                 key={cat.id}
@@ -192,10 +193,10 @@ const HomePage = () => {
       <section className="py-16">
         <div className="container">
           <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
+            <Link to="/offers" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
               <Tag className="h-6 w-6 text-accent" />
               <h2 className="font-display text-3xl font-bold">Featured Offers & Deals</h2>
-            </div>
+            </Link>
             <Link to="/offers" className="text-sm text-primary font-medium flex items-center gap-1 hover:underline">
               View all <ArrowRight className="h-4 w-4" />
             </Link>
@@ -203,47 +204,48 @@ const HomePage = () => {
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {comboDeals.slice(0, 3).map((deal, i) => (
-              <motion.div
-                key={deal.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="bg-accent/10 p-6">
-                  <Badge className="bg-accent text-accent-foreground border-0 mb-3">
-                    Save ₹{deal.originalPrice - deal.dealPrice}
-                  </Badge>
-                  <h3 className="font-display font-bold text-lg">{deal.name}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{deal.description}</p>
-                </div>
-                <div className="p-6">
-                  <div className="space-y-2 mb-4">
-                    {deal.products.slice(0, 2).map(pid => {
-                      const p = products.find(pr => pr.id === pid);
-                      return p ? (
-                        <div key={pid} className="flex items-center gap-2 text-sm">
-                          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                          <span className="truncate">{p.name}</span>
-                          <span className="ml-auto text-muted-foreground shrink-0">₹{p.price}</span>
-                        </div>
-                      ) : null;
-                    })}
-                    {deal.products.length > 2 && (
-                      <div className="text-xs text-muted-foreground italic pt-2">
-                        + {deal.products.length - 2} more items
-                      </div>
-                    )}
+              <Link key={deal.id} to="/offers" className="block">
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                >
+                  <div className="bg-accent/10 p-6">
+                    <Badge className="bg-accent text-accent-foreground border-0 mb-3">
+                      Save ₹{deal.originalPrice - deal.dealPrice}
+                    </Badge>
+                    <h3 className="font-display font-bold text-lg">{deal.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{deal.description}</p>
                   </div>
-                  <div className="flex items-end justify-between border-t pt-4">
-                    <div>
-                      <span className="text-sm text-muted-foreground line-through">₹{deal.originalPrice}</span>
-                      <span className="ml-2 font-display font-bold text-lg text-primary">₹{deal.dealPrice}</span>
+                  <div className="p-6">
+                    <div className="space-y-2 mb-4">
+                      {deal.products.slice(0, 2).map(pid => {
+                        const p = products.find(pr => pr.id === pid);
+                        return p ? (
+                          <div key={pid} className="flex items-center gap-2 text-sm">
+                            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                            <span className="truncate">{p.name}</span>
+                            <span className="ml-auto text-muted-foreground shrink-0">₹{p.price}</span>
+                          </div>
+                        ) : null;
+                      })}
+                      {deal.products.length > 2 && (
+                        <div className="text-xs text-muted-foreground italic pt-2">
+                          + {deal.products.length - 2} more items
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-end justify-between border-t pt-4">
+                      <div>
+                        <span className="text-sm text-muted-foreground line-through">₹{deal.originalPrice}</span>
+                        <span className="ml-2 font-display font-bold text-lg text-primary">₹{deal.dealPrice}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>

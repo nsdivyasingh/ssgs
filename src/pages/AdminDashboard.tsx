@@ -173,7 +173,7 @@ export default function AdminDashboard() {
           <SidebarHeader className="border-b p-4">
             <div className="flex items-center gap-3 px-2">
               <div className="h-8 w-8 rounded-md overflow-hidden shrink-0 border border-border/50">
-                <img src="/favicon.jpg?v=3" alt="Logo" className="h-full w-full object-cover" />
+                <img src="/favicon.jpg?v=3" alt="Logo" className="h-full w-full object-cover" loading="lazy" />
               </div>
               <div className="flex flex-col">
                 <span className="font-display font-bold text-sm leading-tight">SSGS Admin</span>

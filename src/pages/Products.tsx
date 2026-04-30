@@ -1,38 +1,89 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search, ArrowUpDown, Filter } from "lucide-react";
+import { Search, ArrowUpDown, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import ProductCard from "@/components/ProductCard";
 import { products, categories } from "@/lib/products";
 
-type SortOption = "featured" | "price-low" | "price-high" | "name";
+type SortOption = "relevance" | "price-low" | "price-high" | "name" | "discount";
 
 const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeCategory = searchParams.get("category") || "all";
+  const categoryParam = searchParams.get("category") ?? "";
+  const validCategoryIds = new Set(categories.map((category) => category.id));
+  const selectedCategories = categoryParam
+    .split(",")
+    .map((value) => value.trim())
+    .filter((value) => validCategoryIds.has(value));
+  const hasCategoryFilter = selectedCategories.length > 0;
+  const activeCategoryNames = categories
+    .filter((category) => selectedCategories.includes(category.id))
+    .map((category) => category.name);
   const [search, setSearch] = useState("");
-  const [sortBy, setSortBy] = useState<SortOption>("featured");
+  const [sortBy, setSortBy] = useState<SortOption>("relevance");
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [pendingCategories, setPendingCategories] = useState<string[]>(selectedCategories);
 
-  // Filter products
-  let filtered = products.filter(p => {
-    const matchesCategory = activeCategory === "all" || p.category === activeCategory;
-    const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) || 
-                         p.description.toLowerCase().includes(search.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const searchTerm = search.trim().toLowerCase();
 
-  // Sort products
-  if (sortBy === "price-low") {
-    filtered = [...filtered].sort((a, b) => a.price - b.price);
-  } else if (sortBy === "price-high") {
-    filtered = [...filtered].sort((a, b) => b.price - a.price);
-  } else if (sortBy === "name") {
-    filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
-  }
+  const filteredProducts = useMemo(() => {
+    let filtered = products.filter((p) => {
+      const matchesCategory = !hasCategoryFilter || selectedCategories.includes(p.category);
+      const matchesSearch = p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm);
+      return matchesCategory && matchesSearch;
+    });
 
-  const activeCategoryName = categories.find(c => c.id === activeCategory)?.name || "All Products";
+    if (sortBy === "price-low") {
+      filtered = [...filtered].sort((a, b) => a.price - b.price);
+    } else if (sortBy === "price-high") {
+      filtered = [...filtered].sort((a, b) => b.price - a.price);
+    } else if (sortBy === "name") {
+      filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === "discount") {
+      filtered = [...filtered].sort(
+        (a, b) => (b.originalPrice - b.price) / b.originalPrice - (a.originalPrice - a.price) / a.originalPrice
+      );
+    }
+
+    return filtered;
+  }, [hasCategoryFilter, searchTerm, selectedCategories, sortBy]);
+
+  const togglePendingCategory = (categoryId: string, checked: boolean) => {
+    setPendingCategories((prev) => {
+      if (checked) return [...prev, categoryId];
+      return prev.filter((id) => id !== categoryId);
+    });
+  };
+
+  const applyCategoryFilters = () => {
+    const nextParams = new URLSearchParams(searchParams);
+    if (pendingCategories.length === 0) {
+      nextParams.delete("category");
+    } else {
+      nextParams.set("category", pendingCategories.join(","));
+    }
+    setSearchParams(nextParams);
+    setFiltersOpen(false);
+  };
+
+  const clearFilters = () => {
+    setPendingCategories([]);
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete("category");
+    setSearchParams(nextParams);
+  };
+
+  const openFilters = (open: boolean) => {
+    setFiltersOpen(open);
+    if (open) {
+      setPendingCategories(selectedCategories);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-secondary/30 to-background">
@@ -52,83 +103,98 @@ const ProductsPage = () => {
             <Input
               placeholder="Search products..."
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               className="pl-10 h-11 text-base"
             />
           </div>
         </div>
 
-        {/* Filters Section */}
+        {/* Filters + Sort */}
         <div className="mb-8 space-y-4 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-          {/* Category Filters */}
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <Filter className="h-4 w-4 text-muted-foreground" />
-              <p className="font-display font-semibold text-sm">Categories</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Button
-                size="sm"
-                variant={activeCategory === "all" ? "default" : "outline"}
-                onClick={() => setSearchParams({})}
-                className="transition-all duration-200 hover:scale-105"
-              >
-                All Products
-              </Button>
-              {categories.map(cat => (
-                <Button
-                  key={cat.id}
-                  size="sm"
-                  variant={activeCategory === cat.id ? "default" : "outline"}
-                  onClick={() => setSearchParams({ category: cat.id })}
-                  className="transition-all duration-200 hover:scale-105"
-                >
-                  {cat.icon} {cat.name}
+          <div className="flex flex-wrap items-center gap-3">
+            <Dialog open={filtersOpen} onOpenChange={openFilters}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="gap-2">
+                  <SlidersHorizontal className="h-4 w-4" />
+                  Filters
+                  {hasCategoryFilter ? ` (${selectedCategories.length})` : ""}
                 </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Sort & Results */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t">
-            <div className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">{filtered.length}</span> products found
-              {activeCategory !== "all" && (
-                <span className="ml-2">in <span className="font-semibold text-foreground">{activeCategoryName}</span></span>
-              )}
-            </div>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Filter Products</DialogTitle>
+                  <DialogDescription>Select one or more categories to refine results.</DialogDescription>
+                </DialogHeader>
+                <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-2">
+                  {categories.map((category) => {
+                    const isChecked = pendingCategories.includes(category.id);
+                    return (
+                      <div key={category.id} className="flex items-center gap-3 rounded-md border p-3">
+                        <Checkbox
+                          id={`filter-${category.id}`}
+                          checked={isChecked}
+                          onCheckedChange={(checked) => togglePendingCategory(category.id, checked === true)}
+                        />
+                        <Label htmlFor={`filter-${category.id}`} className="flex cursor-pointer items-center gap-2">
+                          <span>{category.icon}</span>
+                          <span>{category.name}</span>
+                        </Label>
+                      </div>
+                    );
+                  })}
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={clearFilters}>Clear</Button>
+                  <Button onClick={applyCategoryFilters}>Apply Filters</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
 
             <div className="flex items-center gap-2">
               <ArrowUpDown className="h-4 w-4 text-muted-foreground" />
               <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
-                <SelectTrigger className="w-[180px] transition-smooth duration-200">
+                <SelectTrigger className="w-[220px] transition-smooth duration-200">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="featured">Featured</SelectItem>
+                  <SelectItem value="relevance">Sort by Relevance</SelectItem>
                   <SelectItem value="price-low">Price: Low to High</SelectItem>
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
                   <SelectItem value="name">Name: A to Z</SelectItem>
+                  <SelectItem value="discount">Best Discount</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+          </div>
+
+          {/* Results */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t">
+            <div className="text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">{filteredProducts.length}</span> products found
+              {hasCategoryFilter && (
+                <span className="ml-2">
+                  in <span className="font-semibold text-foreground">{activeCategoryNames.join(", ")}</span>
+                </span>
+              )}
             </div>
           </div>
         </div>
 
         {/* Products Grid */}
-        {filtered.length === 0 ? (
+        {filteredProducts.length === 0 ? (
           <div className="py-16 md:py-24 text-center animate-fade-in">
             <div className="mb-4">
               <Search className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
             </div>
             <p className="text-xl font-semibold mb-2">No products found</p>
             <p className="text-muted-foreground">Try adjusting your search terms or filters</p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => {
                 setSearchParams({});
+                setPendingCategories([]);
                 setSearch("");
-                setSortBy("featured");
+                setSortBy("relevance");
               }}
               className="mt-6 transition-smooth duration-200"
             >
@@ -137,7 +203,7 @@ const ProductsPage = () => {
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filtered.map((p, index) => (
+            {filteredProducts.map((p, index) => (
               <div
                 key={p.id}
                 className="animate-fade-in-up"
@@ -150,7 +216,7 @@ const ProductsPage = () => {
         )}
 
         {/* Bottom CTA */}
-        {filtered.length > 0 && (
+        {filteredProducts.length > 0 && (
           <div className="mt-12 pt-8 border-t text-center animate-fade-in-up">
             <p className="text-muted-foreground mb-4">
               Looking for bulk orders? We offer special discounts for residential complexes and bulk buyers.
