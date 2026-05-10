@@ -20,12 +20,20 @@ export const categories = [
   { id: "packaging-utility", name: "Packaging & Utility", icon: "📦" },
 ];
 
+
+// Local images for specific products
+import doormatImg from "@/assets/doormat.png";
+import drymopImg from "@/assets/drymop.png";
+import colinImg from "@/assets/colin.png";
+import harpicImg from "@/assets/harpic.png";
+
 const img = (k: string) => `https://images.unsplash.com/photo-${k}?w=400&h=400&fit=crop`;
+
 
 export const products: Product[] = [
   // Cleaning Essentials
-  { id: "p1", name: "Door Mat", price: 180, originalPrice: 250, description: "Durable anti-slip door mat for daily use.", category: "cleaning-essentials", image: img("1585421514738-01798e348b17"), badge: "Popular" },
-  { id: "p3", name: "Dry Mop", price: 500, originalPrice: 650, description: "High quality dry mop for dust-free floors.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69"), badge: "Best Seller" },
+  { id: "p1", name: "Door Mat", price: 180, originalPrice: 250, description: "Durable anti-slip door mat for daily use.", category: "cleaning-essentials", image: doormatImg, badge: "Popular" },
+  { id: "p3", name: "Dry Mop", price: 500, originalPrice: 650, description: "High quality dry mop for dust-free floors.", category: "cleaning-essentials", image: drymopImg, badge: "Best Seller" },
   { id: "p4", name: "Green Scrubber (Set of 5)", price: 25, originalPrice: 40, description: "Heavy duty green scrubber pads. Pack of 5.", category: "cleaning-essentials", image: img("1583947215259-38e31be8751f") },
   { id: "p5", name: "Green Scrubber", price: 12, originalPrice: 20, description: "Single green scrubber pad for tough cleaning.", category: "cleaning-essentials", image: img("1583947215259-38e31be8751f") },
   { id: "p6", name: "Wiper", price: 185, originalPrice: 250, description: "Floor wiper with sturdy handle.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
@@ -38,13 +46,13 @@ export const products: Product[] = [
   { id: "p69", name: "Brushes & Scrub Tools (Dust Pan)", price: 75, originalPrice: 105, description: "Rubber dust pan and scrub tool for easy sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
 
   // Cleaning Chemicals & Liquids
-  { id: "p10", name: "Glass Cleaner (Colin)", price: 99, originalPrice: 135, description: "Colin glass cleaner for streak-free shine.", category: "cleaning-chemicals", image: img("1602243383222-b4b6b6e5eac3"), badge: "Popular" },
+  { id: "p10", name: "Glass Cleaner (Colin)", price: 99, originalPrice: 135, description: "Colin glass cleaner for streak-free shine.", category: "cleaning-chemicals", image: colinImg, badge: "Popular" },
   { id: "p13", name: "Dish Wash Liquid", price: 40, originalPrice: 60, description: "Concentrated dish wash liquid for grease removal.", category: "cleaning-chemicals", image: img("1584813470613-5b1c1cad3d69") },
   { id: "p20", name: "Liquid Detergent (Bloom)", price: 199, originalPrice: 260, description: "Bloom liquid detergent for deep and effective wash.", category: "cleaning-chemicals", image: img("1610557892470-55d9e80c0bce") },
   { id: "p21", name: "Hydrochloric Acid (HCL)", price: 190, originalPrice: 250, description: "Industrial cleaning acid for tough stains.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
   { id: "p22", name: "Hydrochloric Acid (HCL) 5L", price: 500, originalPrice: 650, description: "Bulk 5L HCL for industrial cleaning.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
   { id: "p23", name: "Phenyle", price: 99, originalPrice: 140, description: "Disinfectant phenyle for floor cleaning.", category: "cleaning-chemicals", image: img("1573496359142-b8d87734a5a5") },
-  { id: "p27", name: "Toilet Cleaner (Harpic)", price: 550, originalPrice: 699, description: "Harpic toilet cleaner for sparkling toilets.", category: "cleaning-chemicals", image: img("1585421514284-efb74c2b69ba"), badge: "Best Seller" },
+  { id: "p27", name: "Toilet Cleaner (Harpic)", price: 550, originalPrice: 699, description: "Harpic toilet cleaner for sparkling toilets.", category: "cleaning-chemicals", image: harpicImg, badge: "Best Seller" },
   { id: "p29", name: "Bleaching Powder", price: 55, originalPrice: 80, description: "Bleaching powder for stain removal and sanitation.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
 
   // Washroom & Hygiene
