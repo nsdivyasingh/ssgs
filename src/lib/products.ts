@@ -31,6 +31,16 @@ import liquidDetergentImg from "@/assets/liquid_detergent.png";
 import mugImg from "@/assets/mug.jpeg";
 import dustbinImg from "@/assets/dustbin.png";
 import airfreshnerImg from "@/assets/airfreshner.png";
+import foodcontainersImg from "@/assets/foodcontainers.png";
+import papercupsImg from "@/assets/papercups.png";
+import plasticbroomImg from "@/assets/plasticbroom.png";
+import dustbinsmallImg from "@/assets/dustbinsmall.png";
+
+import phenylImg from "@/assets/phenyl.png";
+import plasticthreadImg from "@/assets/plasticthread.png";
+import royaltissueImg from "@/assets/royal_toilet_tissuepaper.png";
+import tiffinboxImg from "@/assets/tiffinbox.png";
+import microdishesImg from "@/assets/microdishes.png";
 
 const img = (k: string) => `https://images.unsplash.com/photo-${k}?w=400&h=400&fit=crop`;
 
@@ -45,8 +55,8 @@ export const products: Product[] = [
   { id: "p7", name: "Wiper (Large)", price: 200, originalPrice: 280, description: "Large size floor wiper for big areas.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
   { id: "p8", name: "Wiper (Small)", price: 35, originalPrice: 50, description: "Small wiper for compact cleaning tasks.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
   { id: "p11", name: "Dust Bin", price: 65, originalPrice: 95, description: "Medium size dustbin for home and office.", category: "cleaning-essentials", image: dustbinImg },
-  { id: "p12", name: "Dust Bin (Small)", price: 60, originalPrice: 85, description: "Compact dustbin for desk or bathroom.", category: "cleaning-essentials", image: img("1563453392212-326f5e854473") },
-  { id: "p24", name: "Plastic Brooms", price: 99, originalPrice: 140, description: "Durable plastic broom for everyday sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
+  { id: "p12", name: "Dust Bin (Small)", price: 60, originalPrice: 85, description: "Compact dustbin for desk or bathroom.", category: "cleaning-essentials", image: dustbinsmallImg },
+  { id: "p24", name: "Plastic Brooms", price: 99, originalPrice: 140, description: "Durable plastic broom for everyday sweeping.", category: "cleaning-essentials", image: plasticbroomImg },
   { id: "p31", name: "Hard Broom", price: 120, originalPrice: 170, description: "Stiff bristle broom for outdoor sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
   { id: "p69", name: "Brushes & Scrub Tools (Dust Pan)", price: 75, originalPrice: 105, description: "Rubber dust pan and scrub tool for easy sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
 
@@ -56,7 +66,7 @@ export const products: Product[] = [
   { id: "p20", name: "Liquid Detergent (Bloom)", price: 199, originalPrice: 260, description: "Bloom liquid detergent for deep and effective wash.", category: "cleaning-chemicals", image: liquidDetergentImg },
   { id: "p21", name: "Hydrochloric Acid (HCL)", price: 190, originalPrice: 250, description: "Industrial cleaning acid for tough stains.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
   { id: "p22", name: "Hydrochloric Acid (HCL) 5L", price: 500, originalPrice: 650, description: "Bulk 5L HCL for industrial cleaning.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
-  { id: "p23", name: "Phenyle", price: 99, originalPrice: 140, description: "Disinfectant phenyle for floor cleaning.", category: "cleaning-chemicals", image: img("1573496359142-b8d87734a5a5") },
+  { id: "p23", name: "Phenyle 5L", price: 200, originalPrice: 250, description: "Disinfectant phenyle 5L for floor cleaning.", category: "cleaning-chemicals", image: phenylImg },
   { id: "p27", name: "Toilet Cleaner (Harpic)", price: 550, originalPrice: 699, description: "Harpic toilet cleaner for sparkling toilets.", category: "cleaning-chemicals", image: harpicImg, badge: "Best Seller" },
   { id: "p29", name: "Bleaching Powder", price: 55, originalPrice: 80, description: "Bleaching powder for stain removal and sanitation.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
 
@@ -66,6 +76,7 @@ export const products: Product[] = [
   { id: "p25", name: "Hand Wash", price: 99, originalPrice: 135, description: "Antibacterial hand wash liquid.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57") },
   { id: "p26", name: "Soap", price: 90, originalPrice: 125, description: "Everyday hygiene soap option.", category: "washroom-hygiene", image: img("1582735689369-4fe89db7114c") },
   { id: "p30", name: "Urinal Cake", price: 41, originalPrice: 60, description: "Long lasting urinal deodorizer cake.", category: "washroom-hygiene", image: img("1556228578-0d85b1a4d571") },
+  { id: "p81", name: "Royal Toilet Tissue Paper", price: 120, originalPrice: 150, description: "Soft, premium toilet tissue paper for everyday hygiene.", category: "washroom-hygiene", image: royaltissueImg },
   { id: "p79", name: "Latex Hand Gloves", price: 130, originalPrice: 180, description: "Latex hand gloves for safe handling.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57") },
   { id: "p80", name: "Latex Hand Gloves (Heavy Duty)", price: 135, originalPrice: 185, description: "Heavy-duty latex gloves for intensive cleaning.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57"), badge: "Best Seller" },
 
@@ -80,13 +91,13 @@ export const products: Product[] = [
   { id: "p52", name: "FineWare Coffee Mug", price: 99, originalPrice: 140, description: "FineWare premium coffee mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
   { id: "p53", name: "Milton Star MFG Mug", price: 89, originalPrice: 125, description: "Milton premium mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
   { id: "p54", name: "Milton Solo Orbit MUG", price: 95, originalPrice: 130, description: "Milton ergonomic mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
-  { id: "p56", name: "FineWare Bowl 6 inch", price: 101, originalPrice: 140, description: "FineWare bowl 6 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
+  { id: "p56", name: "FineWare Bowl 6 inch", price: 101, originalPrice: 140, description: "FineWare bowl 6 inch.", category: "kitchen-food-use", image: microdishesImg },
   { id: "p57", name: "FineWare Bowl 4.5 inch", price: 75, originalPrice: 105, description: "FineWare bowl 4.5 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
   { id: "p58", name: "FineWare Bowl 8 inch", price: 155, originalPrice: 210, description: "FineWare bowl 8 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
   { id: "p63", name: "FineWare Round Bowl 3 inch", price: 45, originalPrice: 65, description: "FineWare round bowl 3 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
   { id: "p65", name: "FineWare Square Bowl 5 inch", price: 98, originalPrice: 135, description: "FineWare square bowl 5 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
   { id: "p66", name: "FineWare Bowl HMR 7 inch", price: 203, originalPrice: 270, description: "FineWare HMR bowl 7 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
-  { id: "p68", name: "Tiffin Box", price: 199, originalPrice: 260, description: "Durable tiffin box for food use.", category: "kitchen-food-use", image: img("1563453392212-326f5e854473") },
+  { id: "p68", name: "Tiffin Box", price: 199, originalPrice: 260, description: "Durable tiffin box for food use.", category: "kitchen-food-use", image: tiffinboxImg },
 
   // Bottles & Hydration
   { id: "p32", name: "Milton Water Bottle Swirl Flip", price: 145, originalPrice: 199, description: "Milton Swirl Flip water bottle.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
@@ -101,7 +112,7 @@ export const products: Product[] = [
   { id: "p42", name: "Milton Infuser Bottle (1Ltr)", price: 225, originalPrice: 299, description: "Milton infuser bottle with filter.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
 
   // Disposable Tableware
-  { id: "p43", name: "Paper Cup (Tea Cup 55ml)", price: 55, originalPrice: 75, description: "Disposable paper tea cups 55ml.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
+  { id: "p43", name: "Paper Cup (Tea Cup 55ml)", price: 55, originalPrice: 75, description: "Disposable paper tea cups 55ml.", category: "disposable-tableware", image: papercupsImg },
   { id: "p44", name: "Paper Cups (TeaCups) 100ml", price: 85, originalPrice: 110, description: "Disposable paper cups 100ml pack.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
   { id: "p45", name: "Paper Cups (TeaCups) 115ml", price: 90, originalPrice: 120, description: "Paper tea cups 115ml pack.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
   { id: "p46", name: "Paper Cups WaterGlass 250ml", price: 120, originalPrice: 160, description: "Paper water glass cups 250ml.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
@@ -111,9 +122,9 @@ export const products: Product[] = [
   { id: "p50", name: "Disposable Bowls 180ML (Set of 50)", price: 199, originalPrice: 260, description: "Disposable bowls 180ml set of 50.", category: "disposable-tableware", image: img("1577720643272-265f434e898f"), badge: "Bulk" },
 
   // Packaging & Utility
-  { id: "p15", name: "Plastic Thread", price: 185, originalPrice: 250, description: "Strong plastic thread for packaging utility.", category: "packaging-utility", image: img("1586775206919-3819e5cad92c") },
+  { id: "p15", name: "Plastic Thread", price: 185, originalPrice: 250, description: "Strong plastic thread for packaging utility.", category: "packaging-utility", image: plasticthreadImg },
   { id: "p28", name: "Plastic Cover", price: 28, originalPrice: 40, description: "Plastic cover sheets for packaging and protection.", category: "packaging-utility", image: img("1577720643272-265f434e898f") },
-  { id: "p71", name: "Food Containers", price: 350, originalPrice: 450, description: "Utility food containers for packing and storage.", category: "packaging-utility", image: img("1563453392212-326f5e854473") },
+  { id: "p71", name: "Food Containers", price: 350, originalPrice: 450, description: "Utility food containers for packing and storage.", category: "packaging-utility", image: foodcontainersImg },
 ];
 
 export const comboDeals = [
