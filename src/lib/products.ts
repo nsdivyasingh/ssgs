@@ -21,11 +21,16 @@ export const categories = [
 ];
 
 
+
 // Local images for specific products
 import doormatImg from "@/assets/doormat.png";
 import drymopImg from "@/assets/drymop.png";
 import colinImg from "@/assets/colin.png";
 import harpicImg from "@/assets/harpic.png";
+import liquidDetergentImg from "@/assets/liquid_detergent.png";
+import mugImg from "@/assets/mug.jpeg";
+import dustbinImg from "@/assets/dustbin.png";
+import airfreshnerImg from "@/assets/airfreshner.png";
 
 const img = (k: string) => `https://images.unsplash.com/photo-${k}?w=400&h=400&fit=crop`;
 
@@ -39,7 +44,7 @@ export const products: Product[] = [
   { id: "p6", name: "Wiper", price: 185, originalPrice: 250, description: "Floor wiper with sturdy handle.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
   { id: "p7", name: "Wiper (Large)", price: 200, originalPrice: 280, description: "Large size floor wiper for big areas.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
   { id: "p8", name: "Wiper (Small)", price: 35, originalPrice: 50, description: "Small wiper for compact cleaning tasks.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
-  { id: "p11", name: "Dust Bin", price: 65, originalPrice: 95, description: "Medium size dustbin for home and office.", category: "cleaning-essentials", image: img("1563453392212-326f5e854473") },
+  { id: "p11", name: "Dust Bin", price: 65, originalPrice: 95, description: "Medium size dustbin for home and office.", category: "cleaning-essentials", image: dustbinImg },
   { id: "p12", name: "Dust Bin (Small)", price: 60, originalPrice: 85, description: "Compact dustbin for desk or bathroom.", category: "cleaning-essentials", image: img("1563453392212-326f5e854473") },
   { id: "p24", name: "Plastic Brooms", price: 99, originalPrice: 140, description: "Durable plastic broom for everyday sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
   { id: "p31", name: "Hard Broom", price: 120, originalPrice: 170, description: "Stiff bristle broom for outdoor sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
@@ -48,7 +53,7 @@ export const products: Product[] = [
   // Cleaning Chemicals & Liquids
   { id: "p10", name: "Glass Cleaner (Colin)", price: 99, originalPrice: 135, description: "Colin glass cleaner for streak-free shine.", category: "cleaning-chemicals", image: colinImg, badge: "Popular" },
   { id: "p13", name: "Dish Wash Liquid", price: 40, originalPrice: 60, description: "Concentrated dish wash liquid for grease removal.", category: "cleaning-chemicals", image: img("1584813470613-5b1c1cad3d69") },
-  { id: "p20", name: "Liquid Detergent (Bloom)", price: 199, originalPrice: 260, description: "Bloom liquid detergent for deep and effective wash.", category: "cleaning-chemicals", image: img("1610557892470-55d9e80c0bce") },
+  { id: "p20", name: "Liquid Detergent (Bloom)", price: 199, originalPrice: 260, description: "Bloom liquid detergent for deep and effective wash.", category: "cleaning-chemicals", image: liquidDetergentImg },
   { id: "p21", name: "Hydrochloric Acid (HCL)", price: 190, originalPrice: 250, description: "Industrial cleaning acid for tough stains.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
   { id: "p22", name: "Hydrochloric Acid (HCL) 5L", price: 500, originalPrice: 650, description: "Bulk 5L HCL for industrial cleaning.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
   { id: "p23", name: "Phenyle", price: 99, originalPrice: 140, description: "Disinfectant phenyle for floor cleaning.", category: "cleaning-chemicals", image: img("1573496359142-b8d87734a5a5") },
@@ -66,11 +71,11 @@ export const products: Product[] = [
 
   // Air & Fragrance
   { id: "p16", name: "Comfort Room Spray", price: 185, originalPrice: 240, description: "Long-lasting comfort room spray.", category: "air-fragrance", image: img("1607006344380-b6775a0824a7") },
-  { id: "p17", name: "Air Freshener", price: 185, originalPrice: 240, description: "Premium air freshener for home and office.", category: "air-fragrance", image: img("1607006344380-b6775a0824a7"), badge: "New" },
+  { id: "p17", name: "Air Freshener", price: 185, originalPrice: 240, description: "Premium air freshener for home and office.", category: "air-fragrance", image: airfreshnerImg, badge: "New" },
   { id: "p18", name: "Spray (General)", price: 275, originalPrice: 350, description: "General purpose spray for household use.", category: "air-fragrance", image: img("1586775206919-3819e5cad92c") },
 
   // Kitchen & Food Use
-  { id: "p9", name: "Mug", price: 35, originalPrice: 55, description: "Durable plastic mug for household use.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
+  { id: "p9", name: "Mug", price: 35, originalPrice: 55, description: "Durable plastic mug for household use.", category: "kitchen-food-use", image: mugImg },
   { id: "p51", name: "FineWare Water Mug", price: 85, originalPrice: 120, description: "FineWare premium water mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
   { id: "p52", name: "FineWare Coffee Mug", price: 99, originalPrice: 140, description: "FineWare premium coffee mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
   { id: "p53", name: "Milton Star MFG Mug", price: 89, originalPrice: 125, description: "Milton premium mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
