@@ -1,3 +1,8 @@
+import greenscrubberImg from "@/assets/greenscrubber.png";
+import handwashImg from "@/assets/hand_wash.png";
+import urinalcakeImg from "@/assets/urinalcake.png";
+import wiperLargeImg from "@/assets/wiper_large.png";
+import wiperSmallImg from "@/assets/wiper_small.png";
 export interface Product {
   id: string;
   name: string;
@@ -49,11 +54,9 @@ export const products: Product[] = [
   // Cleaning Essentials
   { id: "p1", name: "Door Mat", price: 180, originalPrice: 250, description: "Durable anti-slip door mat for daily use.", category: "cleaning-essentials", image: doormatImg, badge: "Popular" },
   { id: "p3", name: "Dry Mop", price: 500, originalPrice: 650, description: "High quality dry mop for dust-free floors.", category: "cleaning-essentials", image: drymopImg, badge: "Best Seller" },
-  { id: "p4", name: "Green Scrubber (Set of 5)", price: 25, originalPrice: 40, description: "Heavy duty green scrubber pads. Pack of 5.", category: "cleaning-essentials", image: img("1583947215259-38e31be8751f") },
-  { id: "p5", name: "Green Scrubber", price: 12, originalPrice: 20, description: "Single green scrubber pad for tough cleaning.", category: "cleaning-essentials", image: img("1583947215259-38e31be8751f") },
-  { id: "p6", name: "Wiper", price: 185, originalPrice: 250, description: "Floor wiper with sturdy handle.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
-  { id: "p7", name: "Wiper (Large)", price: 200, originalPrice: 280, description: "Large size floor wiper for big areas.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
-  { id: "p8", name: "Wiper (Small)", price: 35, originalPrice: 50, description: "Small wiper for compact cleaning tasks.", category: "cleaning-essentials", image: img("1558618666-fcd25c85f82e") },
+  { id: "p4", name: "Green Scrubber (Set of 5)", price: 25, originalPrice: 40, description: "Heavy duty green scrubber pads. Pack of 5.", category: "cleaning-essentials", image: greenscrubberImg },
+  { id: "p7", name: "Wiper (Large)", price: 200, originalPrice: 280, description: "Large size floor wiper for big areas.", category: "cleaning-essentials", image: wiperLargeImg },
+  { id: "p8", name: "Wiper (Small)", price: 35, originalPrice: 50, description: "Small wiper for compact cleaning tasks.", category: "cleaning-essentials", image: wiperSmallImg },
   { id: "p11", name: "Dust Bin", price: 65, originalPrice: 95, description: "Medium size dustbin for home and office.", category: "cleaning-essentials", image: dustbinImg },
   { id: "p12", name: "Dust Bin (Small)", price: 60, originalPrice: 85, description: "Compact dustbin for desk or bathroom.", category: "cleaning-essentials", image: dustbinsmallImg },
   { id: "p24", name: "Plastic Brooms", price: 99, originalPrice: 140, description: "Durable plastic broom for everyday sweeping.", category: "cleaning-essentials", image: plasticbroomImg },
@@ -73,9 +76,9 @@ export const products: Product[] = [
   // Washroom & Hygiene
   { id: "p2", name: "Hand Gloves", price: 125, originalPrice: 175, description: "Reusable rubber hand gloves for cleaning and hygiene.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57") },
   { id: "p19", name: "Soap (Set of 5)", price: 250, originalPrice: 320, description: "Bath soap pack of 5 bars.", category: "washroom-hygiene", image: img("1600857544200-b2f666a9a2ec"), badge: "Value Pack" },
-  { id: "p25", name: "Hand Wash", price: 99, originalPrice: 135, description: "Antibacterial hand wash liquid.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57") },
+  { id: "p25", name: "Hand Wash", price: 99, originalPrice: 135, description: "Antibacterial hand wash liquid.", category: "washroom-hygiene", image: handwashImg },
   { id: "p26", name: "Soap", price: 90, originalPrice: 125, description: "Everyday hygiene soap option.", category: "washroom-hygiene", image: img("1582735689369-4fe89db7114c") },
-  { id: "p30", name: "Urinal Cake", price: 41, originalPrice: 60, description: "Long lasting urinal deodorizer cake.", category: "washroom-hygiene", image: img("1556228578-0d85b1a4d571") },
+  { id: "p30", name: "Urinal Cake", price: 41, originalPrice: 60, description: "Long lasting urinal deodorizer cake.", category: "washroom-hygiene", image: urinalcakeImg },
   { id: "p81", name: "Royal Toilet Tissue Paper", price: 120, originalPrice: 150, description: "Soft, premium toilet tissue paper for everyday hygiene.", category: "washroom-hygiene", image: royaltissueImg },
   { id: "p79", name: "Latex Hand Gloves", price: 130, originalPrice: 180, description: "Latex hand gloves for safe handling.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57") },
   { id: "p80", name: "Latex Hand Gloves (Heavy Duty)", price: 135, originalPrice: 185, description: "Heavy-duty latex gloves for intensive cleaning.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57"), badge: "Best Seller" },
