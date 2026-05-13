@@ -36,6 +36,9 @@ import liquidDetergentImg from "@/assets/liquid_detergent.png";
 import mugImg from "@/assets/mug.jpeg";
 import dustbinImg from "@/assets/dustbin.png";
 import airfreshnerImg from "@/assets/airfreshner.png";
+import roomfreshnerImg from "@/assets/roomfreshner.png";
+import bleachingPowderImg from "@/assets/bleaching_powder.png";
+import handglovesImg from "@/assets/handgloves.png";
 import foodcontainersImg from "@/assets/foodcontainers.png";
 import papercupsImg from "@/assets/papercups.png";
 import plasticbroomImg from "@/assets/plasticbroom.png";
@@ -71,21 +74,22 @@ export const products: Product[] = [
   { id: "p22", name: "Hydrochloric Acid (HCL) 5L", price: 500, originalPrice: 650, description: "Bulk 5L HCL for industrial cleaning.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
   { id: "p23", name: "Phenyle 5L", price: 200, originalPrice: 250, description: "Disinfectant phenyle 5L for floor cleaning.", category: "cleaning-chemicals", image: phenylImg },
   { id: "p27", name: "Toilet Cleaner (Harpic)", price: 550, originalPrice: 699, description: "Harpic toilet cleaner for sparkling toilets.", category: "cleaning-chemicals", image: harpicImg, badge: "Best Seller" },
-  { id: "p29", name: "Bleaching Powder", price: 55, originalPrice: 80, description: "Bleaching powder for stain removal and sanitation.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
+  { id: "p29", name: "Bleaching Powder", price: 55, originalPrice: 80, description: "Bleaching powder for stain removal and sanitation.", category: "cleaning-chemicals", image: bleachingPowderImg },
 
   // Washroom & Hygiene
-  { id: "p2", name: "Hand Gloves", price: 125, originalPrice: 175, description: "Reusable rubber hand gloves for cleaning and hygiene.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57") },
+  { id: "p2", name: "Hand Gloves", price: 125, originalPrice: 175, description: "Reusable rubber hand gloves for cleaning and hygiene.", category: "washroom-hygiene", image: handglovesImg },
   { id: "p19", name: "Soap (Set of 5)", price: 250, originalPrice: 320, description: "Bath soap pack of 5 bars.", category: "washroom-hygiene", image: img("1600857544200-b2f666a9a2ec"), badge: "Value Pack" },
   { id: "p25", name: "Hand Wash", price: 99, originalPrice: 135, description: "Antibacterial hand wash liquid.", category: "washroom-hygiene", image: handwashImg },
   { id: "p26", name: "Soap", price: 90, originalPrice: 125, description: "Everyday hygiene soap option.", category: "washroom-hygiene", image: img("1582735689369-4fe89db7114c") },
   { id: "p30", name: "Urinal Cake", price: 41, originalPrice: 60, description: "Long lasting urinal deodorizer cake.", category: "washroom-hygiene", image: urinalcakeImg },
   { id: "p81", name: "Royal Toilet Tissue Paper", price: 120, originalPrice: 150, description: "Soft, premium toilet tissue paper for everyday hygiene.", category: "washroom-hygiene", image: royaltissueImg },
-  { id: "p79", name: "Latex Hand Gloves", price: 130, originalPrice: 180, description: "Latex hand gloves for safe handling.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57") },
-  { id: "p80", name: "Latex Hand Gloves (Heavy Duty)", price: 135, originalPrice: 185, description: "Heavy-duty latex gloves for intensive cleaning.", category: "washroom-hygiene", image: img("1584483766114-2cea6facdf57"), badge: "Best Seller" },
+  { id: "p79", name: "Latex Hand Gloves", price: 130, originalPrice: 180, description: "Latex hand gloves for safe handling.", category: "washroom-hygiene", image: handglovesImg },
+  { id: "p80", name: "Latex Hand Gloves (Heavy Duty)", price: 135, originalPrice: 185, description: "Heavy-duty latex gloves for intensive cleaning.", category: "washroom-hygiene", image: handglovesImg, badge: "Best Seller" },
 
   // Air & Fragrance
-  { id: "p16", name: "Comfort Room Spray", price: 185, originalPrice: 240, description: "Long-lasting comfort room spray.", category: "air-fragrance", image: img("1607006344380-b6775a0824a7") },
+  // Removed Comfort Room Spray
   { id: "p17", name: "Air Freshener", price: 185, originalPrice: 240, description: "Premium air freshener for home and office.", category: "air-fragrance", image: airfreshnerImg, badge: "New" },
+    { id: "p171", name: "Room Freshener", price: 190, originalPrice: 250, description: "Long-lasting room freshener for a pleasant environment.", category: "air-fragrance", image: roomfreshnerImg, badge: "New" },
   { id: "p18", name: "Spray (General)", price: 275, originalPrice: 350, description: "General purpose spray for household use.", category: "air-fragrance", image: img("1586775206919-3819e5cad92c") },
 
   // Kitchen & Food Use
