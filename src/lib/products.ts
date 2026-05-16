@@ -44,11 +44,16 @@ import papercupsImg from "@/assets/papercups.png";
 import plasticbroomImg from "@/assets/plasticbroom.png";
 import dustbinsmallImg from "@/assets/dustbinsmall.png";
 
+
 import phenylImg from "@/assets/phenyl.png";
 import plasticthreadImg from "@/assets/plasticthread.png";
 import royaltissueImg from "@/assets/royal_toilet_tissuepaper.png";
 import tiffinboxImg from "@/assets/tiffinbox.png";
 import microdishesImg from "@/assets/microdishes.png";
+import fimwareCoffeeMugImg from "@/assets/Fimware_coffeemug.png";
+import fimwareWaterMugImg from "@/assets/fimware_watermug.png";
+import hclImg from "@/assets/HCL.png";
+import hardBroomImg from "@/assets/hard_broom.png";
 
 const img = (k: string) => `https://images.unsplash.com/photo-${k}?w=400&h=400&fit=crop`;
 
@@ -63,15 +68,14 @@ export const products: Product[] = [
   { id: "p11", name: "Dust Bin", price: 65, originalPrice: 95, description: "Medium size dustbin for home and office.", category: "cleaning-essentials", image: dustbinImg },
   { id: "p12", name: "Dust Bin (Small)", price: 60, originalPrice: 85, description: "Compact dustbin for desk or bathroom.", category: "cleaning-essentials", image: dustbinsmallImg },
   { id: "p24", name: "Plastic Brooms", price: 99, originalPrice: 140, description: "Durable plastic broom for everyday sweeping.", category: "cleaning-essentials", image: plasticbroomImg },
-  { id: "p31", name: "Hard Broom", price: 120, originalPrice: 170, description: "Stiff bristle broom for outdoor sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
+  // { id: "p31", name: "Hard Broom", price: 120, originalPrice: 170, description: "Stiff bristle broom for outdoor sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
   { id: "p69", name: "Brushes & Scrub Tools (Dust Pan)", price: 75, originalPrice: 105, description: "Rubber dust pan and scrub tool for easy sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
 
   // Cleaning Chemicals & Liquids
   { id: "p10", name: "Glass Cleaner (Colin)", price: 99, originalPrice: 135, description: "Colin glass cleaner for streak-free shine.", category: "cleaning-chemicals", image: colinImg, badge: "Popular" },
   { id: "p13", name: "Dish Wash Liquid", price: 40, originalPrice: 60, description: "Concentrated dish wash liquid for grease removal.", category: "cleaning-chemicals", image: img("1584813470613-5b1c1cad3d69") },
   { id: "p20", name: "Liquid Detergent (Bloom)", price: 199, originalPrice: 260, description: "Bloom liquid detergent for deep and effective wash.", category: "cleaning-chemicals", image: liquidDetergentImg },
-  { id: "p21", name: "Hydrochloric Acid (HCL)", price: 190, originalPrice: 250, description: "Industrial cleaning acid for tough stains.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
-  { id: "p22", name: "Hydrochloric Acid (HCL) 5L", price: 500, originalPrice: 650, description: "Bulk 5L HCL for industrial cleaning.", category: "cleaning-chemicals", image: img("1563453392212-326f5e854473") },
+  { id: "p21", name: "HCL (Hydrochloric Acid)", price: 190, originalPrice: 250, description: "Industrial cleaning acid for tough stains.", category: "cleaning-chemicals", image: hclImg },
   { id: "p23", name: "Phenyle 5L", price: 200, originalPrice: 250, description: "Disinfectant phenyle 5L for floor cleaning.", category: "cleaning-chemicals", image: phenylImg },
   { id: "p27", name: "Toilet Cleaner (Harpic)", price: 550, originalPrice: 699, description: "Harpic toilet cleaner for sparkling toilets.", category: "cleaning-chemicals", image: harpicImg, badge: "Best Seller" },
   { id: "p29", name: "Bleaching Powder", price: 55, originalPrice: 80, description: "Bleaching powder for stain removal and sanitation.", category: "cleaning-chemicals", image: bleachingPowderImg },
@@ -80,7 +84,11 @@ export const products: Product[] = [
   { id: "p2", name: "Hand Gloves", price: 125, originalPrice: 175, description: "Reusable rubber hand gloves for cleaning and hygiene.", category: "washroom-hygiene", image: handglovesImg },
   { id: "p19", name: "Soap (Set of 5)", price: 250, originalPrice: 320, description: "Bath soap pack of 5 bars.", category: "washroom-hygiene", image: img("1600857544200-b2f666a9a2ec"), badge: "Value Pack" },
   { id: "p25", name: "Hand Wash", price: 99, originalPrice: 135, description: "Antibacterial hand wash liquid.", category: "washroom-hygiene", image: handwashImg },
-  { id: "p26", name: "Soap", price: 90, originalPrice: 125, description: "Everyday hygiene soap option.", category: "washroom-hygiene", image: img("1582735689369-4fe89db7114c") },
+  // { id: "p26", name: "Soap", price: 90, originalPrice: 125, description: "Everyday hygiene soap option.", category: "washroom-hygiene", image: img("1582735689369-4fe89db7114c") },
+    // Added new products as requested
+    { id: "p1001", name: "Fimware Coffee Mug", price: 120, originalPrice: 150, description: "Fimware premium coffee mug.", category: "kitchen-food-use", image: fimwareCoffeeMugImg },
+    { id: "p1002", name: "Fimware Water Mug", price: 110, originalPrice: 140, description: "Fimware premium water mug.", category: "kitchen-food-use", image: fimwareWaterMugImg },
+    { id: "p1003", name: "Hardbroom", price: 130, originalPrice: 170, description: "Durable hardbroom for tough cleaning.", category: "cleaning-essentials", image: hardBroomImg },
   { id: "p30", name: "Urinal Cake", price: 41, originalPrice: 60, description: "Long lasting urinal deodorizer cake.", category: "washroom-hygiene", image: urinalcakeImg },
   { id: "p81", name: "Royal Toilet Tissue Paper", price: 120, originalPrice: 150, description: "Soft, premium toilet tissue paper for everyday hygiene.", category: "washroom-hygiene", image: royaltissueImg },
   { id: "p79", name: "Latex Hand Gloves", price: 130, originalPrice: 180, description: "Latex hand gloves for safe handling.", category: "washroom-hygiene", image: handglovesImg },
