@@ -44,6 +44,7 @@ import papercupsImg from "@/assets/papercups.png";
 import plasticbroomImg from "@/assets/plasticbroom.png";
 import dustbinsmallImg from "@/assets/dustbinsmall.png";
 
+import dishwashLiquidImg from "@/assets/dishwash_liquid.png";
 
 import phenylImg from "@/assets/phenyl.png";
 import plasticthreadImg from "@/assets/plasticthread.png";
@@ -73,7 +74,7 @@ export const products: Product[] = [
 
   // Cleaning Chemicals & Liquids
   { id: "p10", name: "Glass Cleaner (Colin)", price: 99, originalPrice: 135, description: "Colin glass cleaner for streak-free shine.", category: "cleaning-chemicals", image: colinImg, badge: "Popular" },
-  { id: "p13", name: "Dish Wash Liquid", price: 40, originalPrice: 60, description: "Concentrated dish wash liquid for grease removal.", category: "cleaning-chemicals", image: img("1584813470613-5b1c1cad3d69") },
+  { id: "p13", name: "Dish Wash Liquid", price: 40, originalPrice: 60, description: "Concentrated dish wash liquid for grease removal.", category: "cleaning-chemicals", image: dishwashLiquidImg },
   { id: "p20", name: "Liquid Detergent (Bloom)", price: 199, originalPrice: 260, description: "Bloom liquid detergent for deep and effective wash.", category: "cleaning-chemicals", image: liquidDetergentImg },
   { id: "p21", name: "HCL (Hydrochloric Acid)", price: 190, originalPrice: 250, description: "Industrial cleaning acid for tough stains.", category: "cleaning-chemicals", image: hclImg },
   { id: "p23", name: "Phenyle 5L", price: 200, originalPrice: 250, description: "Disinfectant phenyle 5L for floor cleaning.", category: "cleaning-chemicals", image: phenylImg },
@@ -98,12 +99,9 @@ export const products: Product[] = [
   // Removed Comfort Room Spray
   { id: "p17", name: "Air Freshener", price: 185, originalPrice: 240, description: "Premium air freshener for home and office.", category: "air-fragrance", image: airfreshnerImg, badge: "New" },
     { id: "p171", name: "Room Freshener", price: 190, originalPrice: 250, description: "Long-lasting room freshener for a pleasant environment.", category: "air-fragrance", image: roomfreshnerImg, badge: "New" },
-  { id: "p18", name: "Spray (General)", price: 275, originalPrice: 350, description: "General purpose spray for household use.", category: "air-fragrance", image: img("1586775206919-3819e5cad92c") },
 
   // Kitchen & Food Use
   { id: "p9", name: "Mug", price: 35, originalPrice: 55, description: "Durable plastic mug for household use.", category: "kitchen-food-use", image: mugImg },
-  { id: "p51", name: "FineWare Water Mug", price: 85, originalPrice: 120, description: "FineWare premium water mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
-  { id: "p52", name: "FineWare Coffee Mug", price: 99, originalPrice: 140, description: "FineWare premium coffee mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
   { id: "p53", name: "Milton Star MFG Mug", price: 89, originalPrice: 125, description: "Milton premium mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
   { id: "p54", name: "Milton Solo Orbit MUG", price: 95, originalPrice: 130, description: "Milton ergonomic mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
   { id: "p56", name: "FineWare Bowl 6 inch", price: 101, originalPrice: 140, description: "FineWare bowl 6 inch.", category: "kitchen-food-use", image: microdishesImg },
@@ -148,5 +146,5 @@ export const comboDeals = [
   { id: "combo3", name: "Hydration Value Combo", products: ["p34", "p37", "p42"], originalPrice: 1070, dealPrice: 899, description: "Milton bottle combo with infuser option" },
   { id: "combo4", name: "Disposable Serving Pack", products: ["p44", "p48", "p50"], originalPrice: 544, dealPrice: 429, description: "Paper cups, plates, and disposable bowls" },
   { id: "combo5", name: "Washroom Hygiene Kit", products: ["p25", "p30", "p80"], originalPrice: 379, dealPrice: 299, description: "Hand wash, urinal cake, and hand gloves" },
-  { id: "combo6", name: "Kitchen Use Combo", products: ["p51", "p56", "p68"], originalPrice: 460, dealPrice: 369, description: "Mug, bowl, and tiffin box for kitchen use" },
+  { id: "combo6", name: "Kitchen Use Combo", products: ["p1002", "p56", "p68"], originalPrice: 460, dealPrice: 369, description: "Mug, bowl, and tiffin box for kitchen use" },
 ];
