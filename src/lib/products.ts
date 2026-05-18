@@ -55,6 +55,15 @@ import fimwareCoffeeMugImg from "@/assets/Fimware_coffeemug.png";
 import fimwareWaterMugImg from "@/assets/fimware_watermug.png";
 import hclImg from "@/assets/HCL.png";
 import hardBroomImg from "@/assets/hard_broom.png";
+import miltonMugImg from "@/assets/milton_mug.png";
+import miltonBottleImg from "@/assets/milton_bottle.png";
+import finewareBowlImg from "@/assets/fineware_bowl.png";
+import paperCupsImg from "@/assets/paper_cups.png";
+import paperPlatesImg from "@/assets/paper_plates.png";
+import disposableBowlsImg from "@/assets/disposable_bowls.png";
+import soapSetImg from "@/assets/soap_set.png";
+import dustPanImg from "@/assets/dust_pan.png";
+import plasticCoverImg from "@/assets/plastic_cover.png";
 
 const img = (k: string) => `https://images.unsplash.com/photo-${k}?w=400&h=400&fit=crop`;
 
@@ -70,7 +79,7 @@ export const products: Product[] = [
   { id: "p12", name: "Dust Bin (Small)", price: 60, originalPrice: 85, description: "Compact dustbin for desk or bathroom.", category: "cleaning-essentials", image: dustbinsmallImg },
   { id: "p24", name: "Plastic Brooms", price: 99, originalPrice: 140, description: "Durable plastic broom for everyday sweeping.", category: "cleaning-essentials", image: plasticbroomImg },
   // { id: "p31", name: "Hard Broom", price: 120, originalPrice: 170, description: "Stiff bristle broom for outdoor sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
-  { id: "p69", name: "Brushes & Scrub Tools (Dust Pan)", price: 75, originalPrice: 105, description: "Rubber dust pan and scrub tool for easy sweeping.", category: "cleaning-essentials", image: img("1584813470613-5b1c1cad3d69") },
+  { id: "p69", name: "Brushes & Scrub Tools (Dust Pan)", price: 75, originalPrice: 105, description: "Rubber dust pan and scrub tool for easy sweeping.", category: "cleaning-essentials", image: dustPanImg },
 
   // Cleaning Chemicals & Liquids
   { id: "p10", name: "Glass Cleaner (Colin)", price: 99, originalPrice: 135, description: "Colin glass cleaner for streak-free shine.", category: "cleaning-chemicals", image: colinImg, badge: "Popular" },
@@ -83,7 +92,7 @@ export const products: Product[] = [
 
   // Washroom & Hygiene
   { id: "p2", name: "Hand Gloves", price: 125, originalPrice: 175, description: "Reusable rubber hand gloves for cleaning and hygiene.", category: "washroom-hygiene", image: handglovesImg },
-  { id: "p19", name: "Soap (Set of 5)", price: 250, originalPrice: 320, description: "Bath soap pack of 5 bars.", category: "washroom-hygiene", image: img("1600857544200-b2f666a9a2ec"), badge: "Value Pack" },
+  { id: "p19", name: "Soap (Set of 5)", price: 250, originalPrice: 320, description: "Bath soap pack of 5 bars.", category: "washroom-hygiene", image: soapSetImg, badge: "Value Pack" },
   { id: "p25", name: "Hand Wash", price: 99, originalPrice: 135, description: "Antibacterial hand wash liquid.", category: "washroom-hygiene", image: handwashImg },
   // { id: "p26", name: "Soap", price: 90, originalPrice: 125, description: "Everyday hygiene soap option.", category: "washroom-hygiene", image: img("1582735689369-4fe89db7114c") },
     // Added new products as requested
@@ -102,41 +111,41 @@ export const products: Product[] = [
 
   // Kitchen & Food Use
   { id: "p9", name: "Mug", price: 35, originalPrice: 55, description: "Durable plastic mug for household use.", category: "kitchen-food-use", image: mugImg },
-  { id: "p53", name: "Milton Star MFG Mug", price: 89, originalPrice: 125, description: "Milton premium mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
-  { id: "p54", name: "Milton Solo Orbit MUG", price: 95, originalPrice: 130, description: "Milton ergonomic mug.", category: "kitchen-food-use", image: img("1556228578-0d85b1a4d571") },
+  { id: "p53", name: "Milton Star MFG Mug", price: 89, originalPrice: 125, description: "Milton premium mug.", category: "kitchen-food-use", image: miltonMugImg },
+  { id: "p54", name: "Milton Solo Orbit MUG", price: 95, originalPrice: 130, description: "Milton ergonomic mug.", category: "kitchen-food-use", image: miltonMugImg },
   { id: "p56", name: "FineWare Bowl 6 inch", price: 101, originalPrice: 140, description: "FineWare bowl 6 inch.", category: "kitchen-food-use", image: microdishesImg },
-  { id: "p57", name: "FineWare Bowl 4.5 inch", price: 75, originalPrice: 105, description: "FineWare bowl 4.5 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
-  { id: "p58", name: "FineWare Bowl 8 inch", price: 155, originalPrice: 210, description: "FineWare bowl 8 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
-  { id: "p63", name: "FineWare Round Bowl 3 inch", price: 45, originalPrice: 65, description: "FineWare round bowl 3 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
-  { id: "p65", name: "FineWare Square Bowl 5 inch", price: 98, originalPrice: 135, description: "FineWare square bowl 5 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
-  { id: "p66", name: "FineWare Bowl HMR 7 inch", price: 203, originalPrice: 270, description: "FineWare HMR bowl 7 inch.", category: "kitchen-food-use", image: img("1586775206919-3819e5cad92c") },
+  { id: "p57", name: "FineWare Bowl 4.5 inch", price: 75, originalPrice: 105, description: "FineWare bowl 4.5 inch.", category: "kitchen-food-use", image: finewareBowlImg },
+  { id: "p58", name: "FineWare Bowl 8 inch", price: 155, originalPrice: 210, description: "FineWare bowl 8 inch.", category: "kitchen-food-use", image: finewareBowlImg },
+  { id: "p63", name: "FineWare Round Bowl 3 inch", price: 45, originalPrice: 65, description: "FineWare round bowl 3 inch.", category: "kitchen-food-use", image: finewareBowlImg },
+  { id: "p65", name: "FineWare Square Bowl 5 inch", price: 98, originalPrice: 135, description: "FineWare square bowl 5 inch.", category: "kitchen-food-use", image: finewareBowlImg },
+  { id: "p66", name: "FineWare Bowl HMR 7 inch", price: 203, originalPrice: 270, description: "FineWare HMR bowl 7 inch.", category: "kitchen-food-use", image: finewareBowlImg },
   { id: "p68", name: "Tiffin Box", price: 199, originalPrice: 260, description: "Durable tiffin box for food use.", category: "kitchen-food-use", image: tiffinboxImg },
 
   // Bottles & Hydration
-  { id: "p32", name: "Milton Water Bottle Swirl Flip", price: 145, originalPrice: 199, description: "Milton Swirl Flip water bottle.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
-  { id: "p33", name: "Milton Water Bottle (1.5Ltr)", price: 195, originalPrice: 260, description: "Milton 1.5L water bottle.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
-  { id: "p34", name: "Milton Mike Bottle (1Ltr)", price: 195, originalPrice: 260, description: "Milton Mike 1L water bottle.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
-  { id: "p35", name: "Milton Prize 500ML Bottle", price: 145, originalPrice: 199, description: "Milton Prize 500ml compact bottle.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
-  { id: "p36", name: "Milton ACE Flip 500ML Bottle", price: 165, originalPrice: 220, description: "Milton ACE flip-top 500ml bottle.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
-  { id: "p37", name: "Milton Maven (1Ltr) Bottle", price: 650, originalPrice: 850, description: "Milton Maven premium 1L bottle.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3"), badge: "Premium" },
-  { id: "p38", name: "Milton Pacific (Set of 6) 1Ltr", price: 850, originalPrice: 1100, description: "Milton Pacific set of 6 bottles.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3"), badge: "Value Pack" },
-  { id: "p39", name: "Milton Wide Mouth Pet Bottle Set", price: 270, originalPrice: 360, description: "Milton wide mouth pet bottle set.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
-  { id: "p40", name: "Milton Tetra (Set of 1Ltr)", price: 265, originalPrice: 350, description: "Milton Tetra 1L bottle set.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
-  { id: "p42", name: "Milton Infuser Bottle (1Ltr)", price: 225, originalPrice: 299, description: "Milton infuser bottle with filter.", category: "bottles-hydration", image: img("1602243383222-b4b6b6e5eac3") },
+  { id: "p32", name: "Milton Water Bottle Swirl Flip", price: 145, originalPrice: 199, description: "Milton Swirl Flip water bottle.", category: "bottles-hydration", image: miltonBottleImg },
+  { id: "p33", name: "Milton Water Bottle (1.5Ltr)", price: 195, originalPrice: 260, description: "Milton 1.5L water bottle.", category: "bottles-hydration", image: miltonBottleImg },
+  { id: "p34", name: "Milton Mike Bottle (1Ltr)", price: 195, originalPrice: 260, description: "Milton Mike 1L water bottle.", category: "bottles-hydration", image: miltonBottleImg },
+  { id: "p35", name: "Milton Prize 500ML Bottle", price: 145, originalPrice: 199, description: "Milton Prize 500ml compact bottle.", category: "bottles-hydration", image: miltonBottleImg },
+  { id: "p36", name: "Milton ACE Flip 500ML Bottle", price: 165, originalPrice: 220, description: "Milton ACE flip-top 500ml bottle.", category: "bottles-hydration", image: miltonBottleImg },
+  { id: "p37", name: "Milton Maven (1Ltr) Bottle", price: 650, originalPrice: 850, description: "Milton Maven premium 1L bottle.", category: "bottles-hydration", image: miltonBottleImg, badge: "Premium" },
+  { id: "p38", name: "Milton Pacific (Set of 6) 1Ltr", price: 850, originalPrice: 1100, description: "Milton Pacific set of 6 bottles.", category: "bottles-hydration", image: miltonBottleImg, badge: "Value Pack" },
+  { id: "p39", name: "Milton Wide Mouth Pet Bottle Set", price: 270, originalPrice: 360, description: "Milton wide mouth pet bottle set.", category: "bottles-hydration", image: miltonBottleImg },
+  { id: "p40", name: "Milton Tetra (Set of 1Ltr)", price: 265, originalPrice: 350, description: "Milton Tetra 1L bottle set.", category: "bottles-hydration", image: miltonBottleImg },
+  { id: "p42", name: "Milton Infuser Bottle (1Ltr)", price: 225, originalPrice: 299, description: "Milton infuser bottle with filter.", category: "bottles-hydration", image: miltonBottleImg },
 
   // Disposable Tableware
   { id: "p43", name: "Paper Cup (Tea Cup 55ml)", price: 55, originalPrice: 75, description: "Disposable paper tea cups 55ml.", category: "disposable-tableware", image: papercupsImg },
-  { id: "p44", name: "Paper Cups (TeaCups) 100ml", price: 85, originalPrice: 110, description: "Disposable paper cups 100ml pack.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
-  { id: "p45", name: "Paper Cups (TeaCups) 115ml", price: 90, originalPrice: 120, description: "Paper tea cups 115ml pack.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
-  { id: "p46", name: "Paper Cups WaterGlass 250ml", price: 120, originalPrice: 160, description: "Paper water glass cups 250ml.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
-  { id: "p47", name: "Paper Cups WaterGlass 200ml", price: 100, originalPrice: 140, description: "Paper water glass cups 200ml.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
-  { id: "p48", name: "Paper Plates 11 Inch (Set of 25)", price: 199, originalPrice: 260, description: "Disposable paper plates 11 inch.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
-  { id: "p49", name: "Paper Plates 9 Inch (Set of 25)", price: 150, originalPrice: 199, description: "Disposable paper plates 9 inch.", category: "disposable-tableware", image: img("1577720643272-265f434e898f") },
-  { id: "p50", name: "Disposable Bowls 180ML (Set of 50)", price: 199, originalPrice: 260, description: "Disposable bowls 180ml set of 50.", category: "disposable-tableware", image: img("1577720643272-265f434e898f"), badge: "Bulk" },
+  { id: "p44", name: "Paper Cups (TeaCups) 100ml", price: 85, originalPrice: 110, description: "Disposable paper cups 100ml pack.", category: "disposable-tableware", image: paperCupsImg },
+  { id: "p45", name: "Paper Cups (TeaCups) 115ml", price: 90, originalPrice: 120, description: "Paper tea cups 115ml pack.", category: "disposable-tableware", image: paperCupsImg },
+  { id: "p46", name: "Paper Cups WaterGlass 250ml", price: 120, originalPrice: 160, description: "Paper water glass cups 250ml.", category: "disposable-tableware", image: paperCupsImg },
+  { id: "p47", name: "Paper Cups WaterGlass 200ml", price: 100, originalPrice: 140, description: "Paper water glass cups 200ml.", category: "disposable-tableware", image: paperCupsImg },
+  { id: "p48", name: "Paper Plates 11 Inch (Set of 25)", price: 199, originalPrice: 260, description: "Disposable paper plates 11 inch.", category: "disposable-tableware", image: paperPlatesImg },
+  { id: "p49", name: "Paper Plates 9 Inch (Set of 25)", price: 150, originalPrice: 199, description: "Disposable paper plates 9 inch.", category: "disposable-tableware", image: paperPlatesImg },
+  { id: "p50", name: "Disposable Bowls 180ML (Set of 50)", price: 199, originalPrice: 260, description: "Disposable bowls 180ml set of 50.", category: "disposable-tableware", image: disposableBowlsImg, badge: "Bulk" },
 
   // Packaging & Utility
   { id: "p15", name: "Plastic Thread", price: 185, originalPrice: 250, description: "Strong plastic thread for packaging utility.", category: "packaging-utility", image: plasticthreadImg },
-  { id: "p28", name: "Plastic Cover", price: 28, originalPrice: 40, description: "Plastic cover sheets for packaging and protection.", category: "packaging-utility", image: img("1577720643272-265f434e898f") },
+  { id: "p28", name: "Plastic Cover", price: 28, originalPrice: 40, description: "Plastic cover sheets for packaging and protection.", category: "packaging-utility", image: plasticCoverImg },
   { id: "p71", name: "Food Containers", price: 350, originalPrice: 450, description: "Utility food containers for packing and storage.", category: "packaging-utility", image: foodcontainersImg },
 ];
 
