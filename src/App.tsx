@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 
 const Index = lazy(() => import("./pages/Index"));
 const Products = lazy(() => import("./pages/Products"));
+const ProductDetails = lazy(() => import("./pages/ProductDetails"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const BulkOrders = lazy(() => import("./pages/BulkOrders"));
@@ -42,6 +43,7 @@ const AppShell = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/bulk-orders" element={<BulkOrders />} />

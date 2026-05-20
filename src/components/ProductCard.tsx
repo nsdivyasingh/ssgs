@@ -6,6 +6,7 @@ import QuantityStepper from "@/components/ui/QuantityStepper";
 import { useCart } from "@/context/CartContext";
 import { Product } from "@/lib/products";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 export default function ProductCard({ product }: { product: Product }) {
   const { items, addItem, updateQuantity, removeItem } = useCart();
@@ -13,7 +14,11 @@ export default function ProductCard({ product }: { product: Product }) {
   const inCart = Boolean(cartItem);
   const cartQuantity = cartItem?.quantity ?? 1;
 
-  const handleAdd = () => {
+  const handleAdd = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     addItem(product);
     toast.success(`${product.name} added to cart`);
   };
@@ -37,17 +42,18 @@ export default function ProductCard({ product }: { product: Product }) {
           <Badge className="absolute top-3 left-3 z-10 bg-accent text-accent-foreground border-0">{product.badge}</Badge>
         </motion.div>
       )}
-      <div className="aspect-square overflow-hidden bg-muted">
-        <motion.img
-          src={product.image}
-          alt={product.name}
-          className="h-full w-full object-cover"
-          loading="lazy"
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        />
-      </div>
-      <div className="flex flex-1 flex-col p-4">
+      <Link to={`/product/${product.id}`} className="block flex-1 flex flex-col">
+        <div className="aspect-square overflow-hidden bg-muted">
+          <motion.img
+            src={product.image}
+            alt={product.name}
+            className="h-full w-full object-cover"
+            loading="lazy"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          />
+        </div>
+        <div className="flex flex-1 flex-col p-4 pb-0">
         <motion.h3 
           className="font-display font-semibold text-sm leading-snug mb-1"
           initial={{ opacity: 0 }}
@@ -66,14 +72,16 @@ export default function ProductCard({ product }: { product: Product }) {
         >
           {product.description}
         </motion.p>
-        <div className="mt-auto flex items-center justify-between">
-          <motion.div 
-            className="flex flex-col"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25, duration: 0.3 }}
-          >
+        </div>
+      </Link>
+      <div className="p-4 pt-0 mt-auto flex items-center justify-between">
+        <motion.div 
+          className="flex flex-col"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.25, duration: 0.3 }}
+        >
             <div className="flex items-center gap-2">
               <span className="font-display font-bold text-lg text-primary">₹{product.price}</span>
               {product.originalPrice > product.price && (
@@ -104,7 +112,6 @@ export default function ProductCard({ product }: { product: Product }) {
             )}
           </motion.div>
         </div>
-      </div>
     </motion.div>
   );
 }
